@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-speler',
@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./speler.component.css']
 })
 export class SpelerComponent implements OnInit {
-
-  constructor() { }
+  naam:string;
+  constructor(naam)
+  {
+    this.naam = naam;
+  }
 
   ngOnInit() {
   }
-
 }
