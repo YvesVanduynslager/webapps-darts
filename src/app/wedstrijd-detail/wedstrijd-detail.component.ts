@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 @Component({
-  selector: 'app-wedstrijd-detail',
+  selector: 'wedstrijdDetail',
   templateUrl: './wedstrijd-detail.component.html',
   styleUrls: ['./wedstrijd-detail.component.css']
 })

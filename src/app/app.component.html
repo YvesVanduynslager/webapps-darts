@@ -1,5 +1,15 @@
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}} !!
-  </h1>
-</div>
+<h2>Rangschikking</h2>
+<ul class="spelers">
+  <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
+    <span class="badge">{{speler.id}}</span> {{speler.naam}}
+  </li>
+</ul>
+<spelerDetail [speler]="selectedSpeler"></spelerDetail>
+<!-- <div *ngIf="selectedSpeler">
+  <h2>{{selectedSpeler.naam}} details</h2>
+  <div><label>id: </label>{{selectedSpeler.id}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="selectedSpeler.naam" placeholder="naam" />
+  </div>
+</div> -->

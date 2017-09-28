@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms'; //NgModel import
 
 import { AppComponent } from './app.component';
 import { SpelerDetailComponent } from './speler-detail/speler-detail.component';
@@ -12,7 +13,8 @@ import { WedstrijdDetailComponent } from './wedstrijd-detail/wedstrijd-detail.co
     WedstrijdDetailComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
