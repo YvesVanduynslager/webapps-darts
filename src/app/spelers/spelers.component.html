@@ -1,0 +1,7 @@
+<h2>Rangschikking spelers</h2>
+<ul class="spelers">
+  <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
+    <span class="badge">{{speler.id}}</span> {{speler.naam}}
+  </li>
+</ul>
+<spelerDetail [speler]="selectedSpeler"></spelerDetail>
