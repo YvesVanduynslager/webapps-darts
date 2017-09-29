@@ -4,4 +4,10 @@
     <span class="badge">{{speler.id}}</span> {{speler.naam}}
   </li>
 </ul>
-<spelerDetail [speler]="selectedSpeler"></spelerDetail>
+<!-- <spelerDetail [speler]="selectedSpeler"></spelerDetail> -->
+<div *ngIf="selectedSpeler">
+  <h2>
+    {{selectedSpeler.naam | uppercase}} details
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>

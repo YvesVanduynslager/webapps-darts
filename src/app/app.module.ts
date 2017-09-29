@@ -9,30 +9,27 @@ import { AppComponent } from './app.component';
 import { SpelerDetailComponent } from './speler-detail/speler-detail.component';
 import { WedstrijdDetailComponent } from './wedstrijd-detail/wedstrijd-detail.component';
 import { SpelersComponent } from './spelers/spelers.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 //import services
 import { SpelerService } from './speler.service';
+
+import { AppRoutingModule } from './app-routing.module'; //routing gegevens importeren
 
 @NgModule({
   declarations: [
     AppComponent,
     SpelerDetailComponent,
     WedstrijdDetailComponent,
-    SpelersComponent
+    SpelersComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot([ //instellen routing
-      {
-        path: 'spelers',
-        component: SpelersComponent
-      }
-    ])
+    AppRoutingModule, //haalt routinggegevens uit AppRoutingModule op
   ],
-  providers: [
-    SpelerService
-  ],
+  providers: [SpelerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

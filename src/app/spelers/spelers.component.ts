@@ -1,4 +1,5 @@
-import { Component , OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Speler } from '../speler';
 import { SpelerService } from '../speler.service';
 
@@ -9,13 +10,13 @@ import { SpelerService } from '../speler.service';
   providers: [SpelerService] //injecting the SpelerService service into constructor
 })
 
-export class SpelersComponent implements OnInit{
+export class SpelersComponent implements OnInit {
   title = 'Spelers';
   spelers: Speler[];
-  selectedSpeler : Speler;
+  selectedSpeler: Speler;
 
-  constructor(private spelerService: SpelerService)
-  {
+  constructor(private spelerService: SpelerService,
+    private router: Router) {
   }
 
   getSpelers(): void {
@@ -24,6 +25,10 @@ export class SpelersComponent implements OnInit{
 
   onSelect(speler: Speler): void {
     this.selectedSpeler = speler;
+  }
+
+  gotoDetail(): void {
+    this.router.navigate(['detail', this.selectedSpeler.id]);
   }
 
   ngOnInit(): void {

@@ -1,0 +1,8 @@
+<h3>Top Spelers</h3>
+<div class="grid grid-pad">
+    <a *ngFor="let speler of spelers" [routerLink]="['/detail', speler.id]" class="col-1-4">
+        <div class="module speler">
+            <h4>{{speler.naam}}</h4>
+        </div>
+    </a>
+</div>
