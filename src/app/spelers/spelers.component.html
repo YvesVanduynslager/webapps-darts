@@ -1,10 +1,17 @@
 <h2>Rangschikking spelers</h2>
 <ul class="spelers">
   <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
-    <span class="badge">{{speler.id}}</span> {{speler.naam}}
+    <span class="badge">{{speler.id}}</span>
+    <span>{{speler.naam}}</span>
+    <button class="delete" (click)="delete(speler); $event.stopPropagation()">x</button>
+    <!-- $event.stopPropagation zorgt er hier voor dat de het click event niet verder gezet wordt, zie onSelect
+    zodanig dat er geen speler aan selectedSpeler wordt toegekend-->
   </li>
 </ul>
-<!-- <spelerDetail [speler]="selectedSpeler"></spelerDetail> -->
+<div>
+  <label>Naam van de speler:</label> <input #spelerNaam/>
+  <button (click)="add(spelerNaam.value); spelerNaam.value=''">Add</button>
+</div>
 <div *ngIf="selectedSpeler">
   <h2>
     {{selectedSpeler.naam | uppercase}} details

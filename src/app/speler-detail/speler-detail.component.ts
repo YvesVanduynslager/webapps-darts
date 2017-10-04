@@ -23,6 +23,11 @@ export class SpelerDetailComponent implements OnInit {
     this.location.back();
   }
 
+  save(): void {
+    this.spelerService.update(this.speler)
+    .then(() => this.goBack());
+  }
+
   ngOnInit(): void {
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(+params.get('id'))) //+convert hier naar number (was eerst string)
       .subscribe(speler => this.speler = speler);

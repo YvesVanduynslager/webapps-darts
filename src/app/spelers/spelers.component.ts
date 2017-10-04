@@ -28,7 +28,30 @@ export class SpelersComponent implements OnInit {
   }
 
   gotoDetail(): void {
-    this.router.navigate(['detail', this.selectedSpeler.id]);
+    this.router.navigate(['/detail', this.selectedSpeler.id]);
+  }
+
+  add(naam: string): void {
+    naam = naam.trim();
+    if (!naam) {
+      return;
+    }
+    this.spelerService.create(naam)
+      .then(speler => {
+        this.spelers.push(speler);
+        this.selectedSpeler = null;
+      });
+  }
+
+  delete(speler: Speler): void {
+    this.spelerService
+      .delete(speler.id)
+      .then(() => {
+        this.spelers = this.spelers.filter(s => s !== speler);
+        if (this.selectedSpeler === speler) {
+          this.selectedSpeler = null;
+        }
+      });
   }
 
   ngOnInit(): void {
