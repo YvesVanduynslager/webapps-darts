@@ -13,3 +13,21 @@
         </div>
     </a>
 </div>
+
+<div>
+    <table>
+        <tr>
+        <th>Naam</th>
+        <th>Totaal gewonnen punten</th>
+        <th>Totaal verloren punten</th>
+        <th>Matches gespeeld</th>
+        TODO: <th>detail link</th>
+        </tr>
+        <tr *ngFor="let speler of spelers" [routerLink]="['/detail', speler.id]" >
+            <td>{{speler.naam}}</td>
+            <td>{{speler.totaalPunten}}</td>
+            <td>{{speler.totaalVerlorenPunten}}</td>
+            <td>{{speler.aantalGespeeld}}</td>
+        </tr>
+    </table>
+</div>

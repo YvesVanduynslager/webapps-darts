@@ -1,37 +1,28 @@
 import { Wedstrijd } from './wedstrijd';
 export class Speler {
-    public  id: number;
+    public id: number;
     public naam: string;
     public voornaam: string;
     public wedstrijden: Wedstrijd[];
-    private _volledigeNaam: string;
-    private _totaalPunten: number;
-    private _totaalVerlorenPunten: number;
+    public totaalPunten: number = this.berekenTotaalPunten();
+    public totaalVerlorenPunten: number = this.berekenTotaalVerlorenPunten();
+    public aantalGespeeld: number = this.wedstrijden.length;
 
-    public constructor(id:number,naam:string,voornaam:string,wedstrijden:Wedstrijd[]) {
+    public constructor(id: number, naam: string, voornaam: string, wedstrijden: Wedstrijd[]) {
         this.id = id;
         this.naam = naam;
         this.voornaam = voornaam;
         this.wedstrijden = wedstrijden;
     }
-
-    public volledigeNaam()
-    {
-        return this.voornaam + " " + this.naam;
-    }
-    public aantalGespeeld()
-    {
-        return this.wedstrijden.length;
-    }
-    public totaalPunten() {
-        this._totaalPunten = 0;
-        this.wedstrijden.forEach(w =>this._totaalPunten += w.puntenGewonnen);
-        return this._totaalPunten;
+    private berekenTotaalPunten() {
+        let totaal: number = 0;
+        this.wedstrijden.forEach(w => totaal += w.puntenGewonnen);
+        return totaal;
     }
 
-    public totaalVerlorenPunten() {
-        this._totaalVerlorenPunten = 0;
-        this.wedstrijden.forEach(w => this._totaalVerlorenPunten += w.puntenVerloren);
-        return this._totaalVerlorenPunten;
+    private berekenTotaalVerlorenPunten() {
+        let totaal: number = 0;
+        this.wedstrijden.forEach(w => totaal += w.puntenVerloren);
+        return totaal;
     }
 }
