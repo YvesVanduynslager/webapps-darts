@@ -1,15 +1,19 @@
 import {Speler} from './speler'
 export class Wedstrijd
 {
-    puntenGewonnen: number;
-    puntenVerloren: number;
-    datumGespeeld: Date;
-    tegenstander: Speler;
+    private readonly MAXPUNTEN: number = 3;
+    public puntenGewonnen: number;
+    public datumGespeeld: Date;
+    public tegenstander: Speler;
 
-    constructor(pg:number, pv:number, datum:Date, tegenstander:Speler){
+    public constructor(pg:number, datum:Date, tegenstander:Speler){
         this.puntenGewonnen = pg;
-        this.puntenVerloren = pv;
         this.datumGespeeld = datum;
         this.tegenstander = tegenstander;
+    }
+
+    public puntenVerloren()
+    {
+        return this.MAXPUNTEN - this.puntenGewonnen;
     }
 }
