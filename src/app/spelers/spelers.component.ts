@@ -19,7 +19,7 @@ export class SpelersComponent implements OnInit {
     private router: Router) {
   }
 
-  getSpelers(): void {
+  getSpelers(): void { //is ok, scores moeten niet weergegeven worden voor een lijst van spelers
     this.spelerService.getSpelers().then(spelers => this.spelers = spelers); //voor promise in spelerService
   }
 

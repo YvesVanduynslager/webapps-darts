@@ -16,5 +16,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.spelerService.getSpelers()
       .then(spelers => this.spelers = spelers.slice(0,4)); //select top 2 spelers
+      //veranderen naar alle spelers ophalen
   }
 }

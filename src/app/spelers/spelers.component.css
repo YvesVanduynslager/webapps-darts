@@ -6,7 +6,7 @@
     margin: 0 0 2em 0;
     list-style-type: none;
     padding: 0;
-    width: 15em;
+    width: 18em;
 }
 .spelers li{
     cursor: pointer;
@@ -27,11 +27,11 @@
     background-color: #DDD;
     left: .1em;
 }
-.spelers .text{
+.spelers.text{
     position: relative;
     top: -3px;
 }
-.spelers .badge {
+.spelers.badge {
     display: inline-block;
     font-size: small;
     color: white;

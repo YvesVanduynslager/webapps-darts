@@ -16,6 +16,7 @@ import { WedstrijdDetailComponent } from './wedstrijd-detail/wedstrijd-detail.co
 import { SpelersComponent } from './spelers/spelers.component';
 //import services
 import { SpelerService } from './speler.service';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SpelerService } from './speler.service';
     SpelerDetailComponent,
     WedstrijdDetailComponent,
     SpelersComponent,
-    DashboardComponent
+    DashboardComponent,
+    InfoComponent
   ],
   imports: [
     BrowserModule,
