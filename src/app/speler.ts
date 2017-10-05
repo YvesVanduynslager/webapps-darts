@@ -1,37 +1,30 @@
+import { Wedstrijd } from './wedstrijd';
 export class Speler {
-  id: number;
-  naam: string;
-  /* straat:string;
-  nummer:number;
-  postcode:number;
-  plaats:string;
-  totaalPunten:number = berekenTotaal();
-  verlorenPunten: number = berekenVerloren();
-  spelerwedstrijden: SpelerWedstrijd[]
-  
-  private int berekenTotaal()
-      {
-          int totaal = 0;
-          foreach(SpelerWedstrijd sw in SpelerWedstrijd)
-          {
-              if(sw.SpelerId == this.Id)
-              {
-                  totaal += sw.PuntenGewonnen;
-              }
-          }
-          return totaal;
-      }
+    id: number;
+    naam: string;
+    voornaam: string;
+    volledigeNaam: string = this.voornaam + " " + this.naam;
+    wedstrijden: Wedstrijd[];
+    aantalGespeeld: number = this.wedstrijden.length;
+    totaalPunten: number = this.berekenTotaal();
+    totaalVerlorenPunten: number = this.berekenVerlorenPunten();
 
-      private int berekenVerlorenPunten()
-      {
-          int totaal = 0;
-          foreach (SpelerWedstrijd sw in SpelerWedstrijd)
-          {
-              if (sw.SpelerId == this.Id)
-              {
-                  totaal += sw.PuntenVerloren;
-              }
-          }
-          return totaal;
-      }*/
+    constructor(id:number,naam:string,voornaam:string,wedstrijden:Wedstrijd[]) {
+        this.id = id;
+        this.naam = naam;
+        this.voornaam = voornaam;
+        this.wedstrijden = wedstrijden;
+
+    }
+    private berekenTotaal(): number {
+        let totaal: number = 0;
+        this.wedstrijden.forEach(w => totaal += w.puntenGewonnen);
+        return totaal;
+    }
+
+    private berekenVerlorenPunten(): number {
+        let totaal: number = 0;
+        this.wedstrijden.forEach(w => totaal += w.puntenVerloren);
+        return totaal;
+    }
 }
