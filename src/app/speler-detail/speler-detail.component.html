@@ -1,4 +1,5 @@
-<div *ngIf="speler">
+<div class="dropshadow">
+  <div *ngIf="speler">
     <!-- als speler waarde heeft -->
     <h2>{{speler.naam}} details</h2>
     <div><label>id: </label>{{speler.id}}</div>
@@ -9,3 +10,4 @@
     <button (click)="goBack()">Back</button>
     <button (click)="save()">Save</button>
   </div>
+</div>

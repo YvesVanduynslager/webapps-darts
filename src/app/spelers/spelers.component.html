@@ -1,20 +1,22 @@
-<h2>Spelers</h2>
-<ul class="spelers">
-  <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
-    <span class="badge">{{speler.id}}</span>
-    <span>{{speler.naam}}</span>
-    <button class="delete" (click)="delete(speler); $event.stopPropagation()">x</button>
-    <!-- $event.stopPropagation zorgt er hier voor dat de het click event niet verder gezet wordt, zie onSelect
+<div class="dropshadow">
+  <h2>Spelers</h2>
+  <ul class="spelers">
+    <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
+      <span class="badge">{{speler.id}}</span>
+      <span>{{speler.naam}}</span>
+      <button class="delete" (click)="delete(speler); $event.stopPropagation()">x</button>
+      <!-- $event.stopPropagation zorgt er hier voor dat de het click event niet verder gezet wordt, zie onSelect
     zodanig dat er geen speler aan selectedSpeler wordt toegekend-->
-  </li>
-</ul>
-<div>
-  <label>Naam van de speler:</label> <input #spelerNaam/>
-  <button (click)="add(spelerNaam.value); spelerNaam.value=''">Add</button>
-</div>
-<div *ngIf="selectedSpeler">
-  <h2>
-    {{selectedSpeler.naam | uppercase}} details
-  </h2>
-  <button (click)="gotoDetail()">View Details</button>
+    </li>
+  </ul>
+  <div>
+    <label>Naam van de speler:</label> <input #spelerNaam/>
+    <button (click)="add(spelerNaam.value); spelerNaam.value=''">Add</button>
+  </div>
+  <div *ngIf="selectedSpeler">
+    <h2>
+      {{selectedSpeler.naam | uppercase}} details
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+  </div>
 </div>

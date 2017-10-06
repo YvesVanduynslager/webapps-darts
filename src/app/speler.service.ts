@@ -26,10 +26,15 @@ import { Headers, Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Speler } from './speler';
+import { Wedstrijd } from './wedstrijd';
+import { SpelerWedstrijd } from './spelerwedstrijd';
 
 @Injectable()
 export class SpelerService {
     private spelersUrl = 'api/spelers';
+    private wedstrijdenUrl = 'api/wedstrijden';
+    private spelerwedstrijdUrl = "api/spelerwedstrijden";
+
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) { }
@@ -49,6 +54,20 @@ export class SpelerService {
             .then(response => response.json().data as Speler)
             .catch(this.handleError);
     }
+
+/*     getWedstrijden(): Promise<Wedstrijd[]> {
+        return this.http.get(this.wedstrijdenUrl)
+        .toPromise()
+        .then(response => response.json().data as Wedstrijd[])
+        .catch(this.handleError);
+    }
+
+    getSpelerWedstrijden(): Promise<SpelerWedstrijd[]> {
+        return this.http.get(this.spelerwedstrijdUrl)
+            .toPromise()
+            .then(response => response.json().data as SpelerWedstrijd[])
+            .catch(this.handleError);
+    } */
 
     update(speler: Speler): Promise<Speler> {
         const url = `${this.spelersUrl}/${speler.id}`;
