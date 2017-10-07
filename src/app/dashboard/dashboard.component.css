@@ -1,18 +1,5 @@
-[class*='col-']{
-    float: left;
-    padding-right: 20px;
-    padding-bottom: 20px;
-}
-[class*='col-']:last-of-type {
-    padding-right: 0;
-}
 a{
     text-decoration: none;
-}
-*, *:after, *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 h3{
     text-align: center;
@@ -21,43 +8,45 @@ h3{
 h4{
     position: relative;
 }
-.grid{
+table
+{
+    width: 50%;
     margin: 0;
+    border-spacing: 5px;
 }
-.col-1-4{
-    width: 25%;
+th
+{
+    text-align:left;
+    padding-left: 5px;
+    border-spacing: 5px;
+    background-color: gainsboro;
+    color:steelblue;
 }
-.module{
-    padding: 20px;
-    text-align: center;
-    color: #eee;
-    max-height: 300px;
-    min-width: 120px;
+td
+{
+    color:gainsboro;
+    padding: 0 1% 0 1%;
+}
+tr{
+    text-align:left;
+    max-height:100px;
+    min-width: 40px;
     background-color: #607D8B;
-    border-radius: 2px;
+    
 }
-.module:hover{
-    background-color: #EEE;
-    cursor: pointer;
-    color: #607d8b;
-}
-.grid-pad{
-    padding: 10px 0;
-}
-.grid-pad > [class*='col-']:last-of-type{
-    padding-right: 20px;
+tr:hover{
+    background-color:darkgray;
 }
 @media (max-width: 600px){
-    .module{
-        font-size: 10px;
-        max-height: 75px;
+    *{
+        font-size:10px;
+    }
+    table{
+        width:100%;
     }
 }
 @media (max-width: 1024px){
-    .grid{
-        margin: 0;
-    }
-    .module {
-        min-width: 60px;
+    table{
+        width:100%;
     }
 }
