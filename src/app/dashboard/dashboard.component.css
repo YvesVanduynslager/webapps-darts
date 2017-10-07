@@ -32,7 +32,7 @@ tr{
     max-height:100px;
     min-width: 40px;
     background-color: #607D8B;
-    
+    cursor: pointer; 
 }
 tr:hover{
     background-color:darkgray;
