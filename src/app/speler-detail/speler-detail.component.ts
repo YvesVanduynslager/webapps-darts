@@ -10,7 +10,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'spelerDetail',
   templateUrl: './speler-detail.component.html',
-  styleUrls: ['./speler-detail.component.css']
+  styleUrls: ['./speler-detail.component.less']
 })
 export class SpelerDetailComponent implements OnInit {
   speler: Speler;

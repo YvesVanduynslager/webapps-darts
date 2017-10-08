@@ -5,7 +5,7 @@ import { SpelerService } from '../speler.service';
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit {
   spelers: Speler[] = [];

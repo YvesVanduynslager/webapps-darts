@@ -6,7 +6,7 @@ import { SpelerService } from '../speler.service';
 @Component({
   selector: 'Spelers',
   templateUrl: './spelers.component.html',
-  styleUrls: ['./spelers.component.css'],
+  styleUrls: ['./spelers.component.less'],
   providers: [SpelerService] //injecting the SpelerService service into constructor
 })
 

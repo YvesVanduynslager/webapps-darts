@@ -1,22 +1,7 @@
-*, *:after, *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-h1{
-    color: darkgray;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 150%;
-}
-h2, h3{
-    color: #444;
-    font-family:Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-}
 body{
     margin: 0 2em;
-    background-color:gray;
-    
+    background-color:gray; 
+
 }
 body, input[text], button{
     color: #888;
@@ -26,50 +11,15 @@ body, input[text], button{
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
-
-nav a
-{
-    text-align:center;
-    text-decoration: none;
-    display:inline-block;
-    background-color:gainsboro;
-    color: steelblue;
-    font-weight:bold;
-    padding: 1em;
-    font-size: 1em;
-    min-width:120px;
-}
-
-nav a:hover
-{
-    border-top: 5px solid black;
-    padding-top: 0.7em;
-    color:black;
-}
 .dropshadow
 {
     box-shadow: #000 3px 3px 6px 1px;
     background-color: steelblue;
     padding: 0.5em;
-    margin: 0.4em;
-}
-
-footer{
-    color:gainsboro;
-}
-a{
-    color: gainsboro;
-    text-decoration:none;
+    margin-bottom: 0.4em;
 }
 
 @media (max-width: 600px){
-    nav a{
-        max-height: 50px;
-        max-width: 100%;
-    }
-    nav a:hover{
-        border-top: 3px solid black;
-    }
     body{
         margin:0;
     }
