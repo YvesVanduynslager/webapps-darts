@@ -78,9 +78,9 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    create(naam: string): Promise<Speler> {
+    create(n: string): Promise<Speler> {
         return this.http
-            .post(this.spelersUrl, JSON.stringify({ naam: naam }), { headers: this.headers })
+            .post(this.spelersUrl, JSON.stringify({ naam: n }), { headers: this.headers })
             .toPromise()
             .then(res => res.json().data as Speler)
             .catch(this.handleError);

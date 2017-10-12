@@ -22,48 +22,54 @@ h2, h3{
 #header{
     background: linear-gradient(@black,@lightblue);
 }
-nav
+
+.navbar
 {
-    a {
-    text-align:center;
-    text-decoration: none;
-    display:inline-block;
-    background-color:@white;
-    color: @lightblue;
-    font-weight:bold;
-    padding: 1em;
-    font-size: 1em;
-    min-width:120px;
-    border-radius:3px;
+    background-color:inherit;
+    border:none;
+    ul{
+        margin:0;
+        padding:0;
     }
-    a:hover{
-        border-top: 5px solid @black;
-        padding-top: 0.7em;
-        color:@black;
+    li
+    {
+        display:inline-block;
+            text-align:center;
+            background-color:@white;
+            color: @lightblue;
+            font-weight:bold;
+            padding: 1em;
+            font-size: 1em;
+            min-width:120px;
+            border-radius:3px;
+            cursor:pointer;
+    }
+    li:hover{
+        background-color:darkgray;
     }
 }
+
 footer{
     background: linear-gradient(@lightblue, @black);
     a{
-        text-decoration:none;
         color:@white;
     }
 }
 
-
-@media (max-width: 600px){
-    nav{
-        a{
-            max-height: 50px;
-            max-width: 100%;
-        }
-        a:hover{
-            border-top: 3px solid @black;
-        }
-    }
+a{
+    text-decoration:none;
 }
-@media (max-width: 1024px){
-    nav a {
-        min-width: 60px;
+
+@media (max-width: 600px)
+{
+}
+@media (max-width: 1024px)
+{
+    .navbar
+    {
+        li
+        {
+            min-width: 60px;
+        }
     }
 }
