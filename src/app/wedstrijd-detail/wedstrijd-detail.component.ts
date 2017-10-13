@@ -6,7 +6,7 @@ import { Wedstrijd } from '../wedstrijd';
 import { SpelerService } from '../speler.service';
 
 @Component({
-  selector: 'wedstrijdDetail',
+  selector: 'wedstrijden',
   templateUrl: './wedstrijd-detail.component.html',
   styleUrls: ['./wedstrijd-detail.component.less']
 })
