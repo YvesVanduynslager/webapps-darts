@@ -11,14 +11,15 @@ import { SpelerService } from '../speler.service';
   styleUrls: ['./nieuwewedstrijd.component.less']
 })
 export class NieuwewedstrijdComponent implements OnInit {
-  speler: Speler;
-  spelers: Speler[];
+  public speler: Speler;
+  public spelers: Speler[];
+  public MOGELIJKE_SCORES: number[] = [1,2,3];
 
   constructor(private spelerService: SpelerService,
     private route: ActivatedRoute,
     private location: Location) { }
 
-  goBack(): void { //terug van waar je komt (één stap terug in browers history stack)
+  public goBack(): void { //terug van waar je komt (één stap terug in browers history stack)
     this.location.back();
   }
 
@@ -34,12 +35,12 @@ export class NieuwewedstrijdComponent implements OnInit {
     this.getAllSpelers();
   }
 
-  getAllSpelers(): void { //is ok, scores moeten niet weergegeven worden voor een lijst van spelers
+  public getAllSpelers(): void { //is ok, scores moeten niet weergegeven worden voor een lijst van spelers
     this.spelerService.getSpelers()
       .then(spelers => this.spelers = spelers); //voor promise in spelerService
   }
 
-  getFilteredSpelers(): Speler[] /*deze methode geeft de spelers array terug ZONDER de speler voor wie we een wedstrijd willen toevoegen 
+  public getFilteredSpelers(): Speler[] /*deze methode geeft de spelers array terug ZONDER de speler voor wie we een wedstrijd willen toevoegen 
   deze mag natuurlijk geen wedstrijden spelen tegen zichzelf! */ {
     return this.spelers.filter(speler => speler.id != this.speler.id);
   }

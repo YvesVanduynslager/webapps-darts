@@ -1,12 +1,22 @@
 <div class="dropshadow">
   <h2>Nieuwe wedstrijd voor {{speler.naam}}</h2>
   <div>
-    <label for="puntenGewonnen">Punten gewonnen </label>
-    <input id="puntenGewonnen" name="puntenGewonnen" #punten/>
-    <label for="tegenstander">Tegenstander: </label>
-    <select id="tegenstander" name="tegenstander" #tegenstander>
-      <option *ngFor="let speler of getFilteredSpelers()" value="speler.id">{{speler.naam}}</option>
-    </select>
+    <div class="formComponent">
+      <label for="datumGespeeld">Datum gespeeld: </label>
+      <input id="datumGespeeld" name="datumGespeeld" type="date" #datum/>
+    </div>
+    <div class="formComponent">
+      <label for="puntenGewonnen">Punten gewonnen: </label>
+      <select id="puntenGewonnen" name="puntenGewonnen">
+        <option *ngFor="let score of MOGELIJKE_SCORES" value="score">{{score}}</option>
+      </select>
+    </div>
+    <div class="formComponent">
+      <label for="tegenstander">Tegenstander: </label>
+      <select id="tegenstander" name="tegenstander" #tegenstander>
+        <option *ngFor="let speler of getFilteredSpelers()" value="speler.id">{{speler.naam}}</option>
+      </select>
+    </div>
   </div>
   <button (click)="goBack()">Back</button>
   <button (click)="save()">Save</button>
