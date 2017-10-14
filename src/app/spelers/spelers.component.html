@@ -9,13 +9,15 @@
     </li>
   </ul>
   <div>
-    <label>Naam van de speler:</label> <input #spelerNaam/>
-    <button (click)="add(spelerNaam.value); spelerNaam.value=''">Add</button>
+    <label for="naam">Naam van de speler:</label>
+    <input id="naam" name="naam" #spelerNaam/>
+    <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
   </div>
   <div *ngIf="selectedSpeler">
     <h2>
       {{selectedSpeler.naam | uppercase}} details
     </h2>
-    <button (click)="gotoDetail()">View Details</button>
+    <!-- hier nog details toevoegen zoals adres etc... -->
+    <button (click)="gotoEdit()">Wijzig spelergegevens</button>
   </div>
 </div>

@@ -12,11 +12,12 @@ import { InMemoryDataService } from './in-memory-data.service';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SpelerDetailComponent } from './speler-detail/speler-detail.component';
-import { WedstrijdDetailComponent } from './wedstrijd-detail/wedstrijd-detail.component';
+import { WedstrijdDetailComponent } from './wedstrijden/wedstrijden.component';
 import { SpelersComponent } from './spelers/spelers.component';
 //import services
 import { SpelerService } from './speler.service';
 import { InfoComponent } from './info/info.component';
+import { NieuwewedstrijdComponent } from './nieuwewedstrijd/nieuwewedstrijd.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { InfoComponent } from './info/info.component';
     WedstrijdDetailComponent,
     SpelersComponent,
     DashboardComponent,
-    InfoComponent
+    InfoComponent,
+    NieuwewedstrijdComponent
   ],
   imports: [
     BrowserModule,

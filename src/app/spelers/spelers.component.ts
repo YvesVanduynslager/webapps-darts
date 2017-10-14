@@ -27,20 +27,23 @@ export class SpelersComponent implements OnInit {
     this.selectedSpeler = speler;
   }
 
-  gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedSpeler.id]);
+  gotoEdit(): void {
+    this.router.navigate(['/editSpeler', this.selectedSpeler.id]);
   }
-
-  add(naam: string): void {
+  
+  add(naam: string): boolean { /* betere methode dan in de slides, slides werken met HTMLInputElement ipv string,
+    als je dit doet kan je lege strings toevoegen aan de spelers */
     naam = naam.trim();
-    if (!naam) {
+    //naam.value = naam.value.trim();
+    if (!naam) { //naam.value
       return;
     }
-    this.spelerService.create(naam)
+    this.spelerService.create(naam) //naam.value
       .then(speler => {
         this.spelers.push(speler);
         this.selectedSpeler = null;
       });
+      return false; //event handlers return a boolean, true if you want to propagate the event to other handlers, false to "eat" the event
   }
 
   delete(speler: Speler): void {

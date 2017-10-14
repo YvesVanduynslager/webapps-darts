@@ -4,13 +4,15 @@ import { RouterModule, Routes} from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SpelersComponent } from './spelers/spelers.component';
 import { SpelerDetailComponent } from './speler-detail/speler-detail.component';
-import { WedstrijdDetailComponent} from './wedstrijd-detail/wedstrijd-detail.component';
+import { WedstrijdDetailComponent} from './wedstrijden/wedstrijden.component';
+import { NieuwewedstrijdComponent} from './nieuwewedstrijd/nieuwewedstrijd.component';
 import { InfoComponent } from './info/info.component';
 
 const routes: Routes = [
     {path: '', redirectTo: '/dashboard', pathMatch:'full'},
     {path: 'dashboard', component: DashboardComponent},
-    {path: 'detail/:id', component: SpelerDetailComponent},
+    {path: 'editSpeler/:id', component: SpelerDetailComponent},
+    {path: 'nieuweWedstrijd/:id', component: NieuwewedstrijdComponent},
     {path: 'wedstrijden/:id', component: WedstrijdDetailComponent},
     {path: 'spelers', component: SpelersComponent},
     {path: 'info', component: InfoComponent}

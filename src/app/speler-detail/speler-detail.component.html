@@ -2,7 +2,9 @@
   <div *ngIf="speler">
     <!-- als speler waarde heeft -->
     <h2>{{speler.naam}} details</h2>
-    <div><label>id: </label>{{speler.id}}</div>
+    <div>
+      <label>id: </label>{{speler.id}}
+    </div>
     <div>
       <label>name: </label>
       <input [(ngModel)]="speler.naam" placeholder="naam" />
