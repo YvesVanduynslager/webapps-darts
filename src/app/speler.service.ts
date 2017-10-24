@@ -16,12 +16,12 @@ export class SpelerService {
 
     constructor(private http: Http) { }
 
-/*     getSpelers(): Promise<Speler[]> {
-        return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
-            .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
-            .then(response => response.json().data as Speler[]) //omzetten van gekregen .json data naar Speler-object
-            .catch(this.handleError); //catch server failures and pass to handler method
-    } */
+    /*     getSpelers(): Promise<Speler[]> {
+            return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
+                .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
+                .then(response => response.json().data as Speler[]) //omzetten van gekregen .json data naar Speler-object
+                .catch(this.handleError); //catch server failures and pass to handler method
+        } */
 
     getSpelers(): Promise<Speler[]> {
         return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
@@ -76,8 +76,16 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    delete(id: number): Promise<void> {
-        const url = `${this.spelersUrl}/${id}`;
+    /*     delete(id: number): Promise<void> {
+            const url = `${this.spelersUrl}/${id}`;
+            return this.http.delete(url, { headers: this.headers })
+                .toPromise()
+                .then(() => null)
+                .catch(this.handleError);
+        } */
+
+    delete(speler: Speler): Promise<void> {
+        const url = `${this.spelersUrl}/${speler.id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(() => null)
