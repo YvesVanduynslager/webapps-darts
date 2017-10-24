@@ -6,8 +6,8 @@ import { HttpModule } from '@angular/http'; //http for getting data from server
 //import routing settings
 import { AppRoutingModule } from './app-routing.module';
 //imports for loading & configuring the in-memory-web-api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api'; //simulate communication with a remote server
-import { InMemoryDataService } from './in-memory-data.service';
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api'; //simulate communication with a remote server
+//import { InMemoryDataService } from './in-memory-data.service';
 //import components
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -33,7 +33,7 @@ import { NieuwewedstrijdComponent } from './nieuwewedstrijd/nieuwewedstrijd.comp
     BrowserModule,
     FormsModule,
     HttpModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    //InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule, //haalt routinggegevens uit AppRoutingModule op
   ],
   providers: [SpelerService],

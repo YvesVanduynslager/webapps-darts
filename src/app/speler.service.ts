@@ -1,50 +1,40 @@
-/* import { Injectable } from '@angular/core';
-import { Speler } from './speler';
-//import { SPELERS } from './mock-spelers';
-
-@Injectable()
-export class SpelerService //get data from webservice, localstorage or mock data source
-{
-    getSpelers(): Promise<Speler[]> {
-        return Promise.resolve(SPELERS); //haalt spelers async op, zo blokkeert de ui niet bij ophalen
-    } //stub
-
-    getSpeler(id: number): Promise<Speler> {
-        return this.getSpelers()
-            .then(spelers => spelers.find(speler => speler.id === id));
-    }
-    //test met trage connectie, vervang call naar getSpelers met dit
-    getSpelersSlowly(): Promise<Speler[]> {
-        return new Promise(resolve => {
-            setTimeout(() => resolve(this.getSpelers()), 2000);
-        });
-    }
-} */
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, Response } from '@angular/http';
+import { Observable } from 'rxjs';
 
 import 'rxjs/add/operator/toPromise';
 
 import { Speler } from './speler';
-import { Wedstrijd } from './wedstrijd';
-import { SpelerWedstrijd } from './spelerwedstrijd';
+/* import { Wedstrijd } from './wedstrijd';
+import { SpelerWedstrijd } from './spelerwedstrijd'; */
 
 @Injectable()
 export class SpelerService {
-    private spelersUrl = 'api/spelers';
-    private wedstrijdenUrl = 'api/wedstrijden';
-    private spelerwedstrijdUrl = "api/spelerwedstrijden";
+    private spelersUrl = 'http://localhost:4200/API/spelers/'; //zal redirecten naar port 3000 (enkel in dev)
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     constructor(private http: Http) { }
 
-    getSpelers(): Promise<Speler[]> {
+/*     getSpelers(): Promise<Speler[]> {
         return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
             .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
             .then(response => response.json().data as Speler[]) //omzetten van gekregen .json data naar Speler-object
             .catch(this.handleError); //catch server failures and pass to handler method
+    } */
+
+    getSpelers(): Promise<Speler[]> {
+        return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
+            .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
+            .then(response => response.json().map(item => new Speler(item._id, item.naam, item.voornaam))) //omzetten van gekregen .json data naar Speler-object
+            .catch(this.handleError); //catch server failures and pass to handler method
     }
+
+    /*     get spelers(): Observable<Speler[]> {
+            return this.http.get(this.spelersUrl).map(response =>
+                response.json().map(item =>
+                    new Speler(item._id, item.naam, item.voornaam))); //item.wedstrijden mappen naar wedstrijden object
+        } */
 
     getSpeler(id: number): Promise<Speler> {
         //ONDERSTAANDE MET BACKTICKS!!! AltGr + µ
@@ -55,19 +45,19 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-/*     getWedstrijden(): Promise<Wedstrijd[]> {
-        return this.http.get(this.wedstrijdenUrl)
-        .toPromise()
-        .then(response => response.json().data as Wedstrijd[])
-        .catch(this.handleError);
-    }
-
-    getSpelerWedstrijden(): Promise<SpelerWedstrijd[]> {
-        return this.http.get(this.spelerwedstrijdUrl)
+    /*     getWedstrijden(): Promise<Wedstrijd[]> {
+            return this.http.get(this.wedstrijdenUrl)
             .toPromise()
-            .then(response => response.json().data as SpelerWedstrijd[])
+            .then(response => response.json().data as Wedstrijd[])
             .catch(this.handleError);
-    } */
+        }
+    
+        getSpelerWedstrijden(): Promise<SpelerWedstrijd[]> {
+            return this.http.get(this.spelerwedstrijdUrl)
+                .toPromise()
+                .then(response => response.json().data as SpelerWedstrijd[])
+                .catch(this.handleError);
+        } */
 
     update(speler: Speler): Promise<Speler> {
         const url = `${this.spelersUrl}/${speler.id}`;

@@ -13,6 +13,7 @@ import { SpelerService } from '../speler.service';
 export class NieuwewedstrijdComponent implements OnInit {
   public speler: Speler;
   public spelers: Speler[];
+  //private _spelers;
   public MOGELIJKE_SCORES: number[] = [1,2,3];
 
   constructor(private spelerService: SpelerService,
@@ -28,7 +29,7 @@ export class NieuwewedstrijdComponent implements OnInit {
       .then(() => this.goBack());
   } */
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(+params.get('id'))) //+convert hier naar number (was eerst string)
       .subscribe(speler => this.speler = speler);
 
@@ -36,8 +37,9 @@ export class NieuwewedstrijdComponent implements OnInit {
   }
 
   public getAllSpelers(): void { //is ok, scores moeten niet weergegeven worden voor een lijst van spelers
-    this.spelerService.getSpelers()
+      this.spelerService.getSpelers()
       .then(spelers => this.spelers = spelers); //voor promise in spelerService
+      //this._spelers = this.spelerService.spelers;
   }
 
   public getFilteredSpelers(): Speler[] /*deze methode geeft de spelers array terug ZONDER de speler voor wie we een wedstrijd willen toevoegen 

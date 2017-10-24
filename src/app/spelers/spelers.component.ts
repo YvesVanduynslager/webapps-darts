@@ -6,21 +6,18 @@ import { SpelerService } from '../speler.service';
 @Component({
   selector: 'Spelers',
   templateUrl: './spelers.component.html',
-  styleUrls: ['./spelers.component.less'],
-  providers: [SpelerService] //injecting the SpelerService service into constructor
+  styleUrls: ['./spelers.component.less']
+  //providers: [SpelerService] //injecting the SpelerService service into constructor
 })
 
 export class SpelersComponent implements OnInit {
   title = 'Spelers';
   spelers: Speler[];
+  //private _spelers;
   selectedSpeler: Speler;
 
   constructor(private spelerService: SpelerService,
     private router: Router) {
-  }
-
-  getSpelers(): void { //is ok, scores moeten niet weergegeven worden voor een lijst van spelers
-    this.spelerService.getSpelers().then(spelers => this.spelers = spelers); //voor promise in spelerService
   }
 
   onSelect(speler: Speler): void {
@@ -30,7 +27,7 @@ export class SpelersComponent implements OnInit {
   gotoEdit(): void {
     this.router.navigate(['/editSpeler', this.selectedSpeler.id]);
   }
-  
+
   add(naam: string): boolean { /* betere methode dan in de slides, slides werken met HTMLInputElement ipv string,
     als je dit doet kan je lege strings toevoegen aan de spelers */
     naam = naam.trim();
@@ -43,7 +40,7 @@ export class SpelersComponent implements OnInit {
         this.spelers.push(speler);
         this.selectedSpeler = null;
       });
-      return false; //event handlers return a boolean, true if you want to propagate the event to other handlers, false to "eat" the event
+    return false; //event handlers return a boolean, true if you want to propagate the event to other handlers, false to "eat" the event
   }
 
   delete(speler: Speler): void {
@@ -57,7 +54,17 @@ export class SpelersComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    this.getSpelers();
+  /*   ngOnInit(): void {
+      this.getSpelers();
+    } */
+
+  ngOnInit(): void{
+     this.spelerService.getSpelers()
+      .then(spelers => this.spelers = spelers); //select top 2 spelers
+     //this._spelers = this.spelerService.spelers;
   }
+
+/*      get spelers() {
+      return this._spelers;
+    } */
 }

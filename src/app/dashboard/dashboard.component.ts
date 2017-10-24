@@ -9,12 +9,19 @@ import { SpelerService } from '../speler.service';
 })
 export class DashboardComponent implements OnInit {
   spelers: Speler[] = [];
+  //private _spelers;
 
   constructor(private spelerService: SpelerService) { }
 
-  ngOnInit(): void {
+  //called nadat alle @Input vars zijn ingesteld
+  ngOnInit() {
     this.spelerService.getSpelers()
-      .then(spelers => this.spelers = spelers/*.slice(0,4)*/); //select top 2 spelers
-    //veranderen naar alle spelers ophalen
+      .then(spelers => this.spelers = spelers);
+    //this.spelers = this.spelerService.spelers;
   }
+
+  /*    get spelers()
+    {
+      return this._spelers;
+    } */
 }
