@@ -3,6 +3,7 @@ export class Speler {
     public id: number;
     public naam: string;
     public voornaam: string;
+    //ALLES WAT HIER IN COMMENTAAR STAAT: data ophalen werkt anders NOG niet
 /*     public wedstrijden: Wedstrijd[];
     public totaalPunten: number = this.berekenTotaalPunten();
     public totaalVerlorenPunten: number = this.berekenTotaalVerlorenPunten();
