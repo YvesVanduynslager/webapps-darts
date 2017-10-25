@@ -25,7 +25,7 @@ export class SpelersComponent implements OnInit {
   }
 
   gotoEdit(): void {
-    this.router.navigate(['/editSpeler', this.selectedSpeler.id]);
+    this.router.navigate(['/editSpeler', this.selectedSpeler._id]);
   }
 
   add(naam: string): boolean { /* betere methode dan in de slides, slides werken met HTMLInputElement ipv string,

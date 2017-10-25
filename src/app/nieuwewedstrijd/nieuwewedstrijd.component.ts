@@ -30,7 +30,7 @@ export class NieuwewedstrijdComponent implements OnInit {
   } */
 
    ngOnInit(): void {
-    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(+params.get('id'))) //+convert hier naar number (was eerst string)
+    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(/*+*/params.get('id'))) //+convert hier naar number (was eerst string)
       .subscribe(speler => this.speler = speler);
 
     this.getAllSpelers();
@@ -44,6 +44,6 @@ export class NieuwewedstrijdComponent implements OnInit {
 
   public getFilteredSpelers(): Speler[] /*deze methode geeft de spelers array terug ZONDER de speler voor wie we een wedstrijd willen toevoegen 
   deze mag natuurlijk geen wedstrijden spelen tegen zichzelf! */ {
-    return this.spelers.filter(speler => speler.id != this.speler.id);
+    return this.spelers.filter(speler => speler._id != this.speler._id);
   }
 }

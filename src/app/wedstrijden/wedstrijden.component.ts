@@ -21,13 +21,13 @@ export class WedstrijdDetailComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(+params.get('id'))) //+convert hier naar number (was eerst string)
+    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(/*+*/params.get('id'))) //hier loopt er wsl iets mis
       .subscribe(speler => this.speler = speler);
 
     //hierna wedstrijden opvullen met id van speler;
   }
 
   gotoNieuweWedstrijdForm(): void {
-    this.router.navigate(['/nieuweWedstrijd', this.speler.id]);
+    this.router.navigate(['/nieuweWedstrijd', this.speler._id]);
   }
 }

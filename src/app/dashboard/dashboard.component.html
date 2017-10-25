@@ -7,7 +7,7 @@
             <th>Totaal verloren punten</th>
             <th>Matches gespeeld</th>
         </tr>
-        <tr *ngFor="let speler of spelers" [routerLink]="['/wedstrijden', speler.id]">
+        <tr *ngFor="let speler of spelers" [routerLink]="['/wedstrijden', speler._id]">
             <td>
                 <h4>{{speler.naam}}</h4>
                 <!-- totaal gewonnen punten

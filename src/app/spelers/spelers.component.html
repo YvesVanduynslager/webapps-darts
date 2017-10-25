@@ -14,8 +14,12 @@
     <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
   </div>
   <div *ngIf="selectedSpeler">
+      <h1>Details</h1>
     <h2>
-      {{selectedSpeler.naam | uppercase}} details
+      Id: {{selectedSpeler._id }}
+    </h2>
+    <h2>
+      Naam: {{selectedSpeler.naam | uppercase}}
     </h2>
     <!-- hier nog details toevoegen zoals adres etc... -->
     <button (click)="gotoEdit()">Wijzig spelergegevens</button>

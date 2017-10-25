@@ -26,7 +26,7 @@ export class SpelerService {
     getSpelers(): Promise<Speler[]> {
         return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
             .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
-            .then(response => response.json().map(item => new Speler(item._id, item.naam, item.voornaam))) //omzetten van gekregen .json data naar Speler-object
+            .then(response => response.json().map(item => new Speler(item._id, item.naam))) //omzetten van gekregen .json data naar Speler-object
             .catch(this.handleError); //catch server failures and pass to handler method
     }
 
@@ -36,31 +36,17 @@ export class SpelerService {
                     new Speler(item._id, item.naam, item.voornaam))); //item.wedstrijden mappen naar wedstrijden object
         } */
 
-    getSpeler(id: number): Promise<Speler> {
+    getSpeler(id: string): Promise<Speler> {
         //ONDERSTAANDE MET BACKTICKS!!! AltGr + µ
         const url = `${this.spelersUrl}/${id}`; //url naar servercommand met id parameter
-        return this.http.get(url)
+        return this.http.get(url, { headers: this.headers} )
             .toPromise()
             .then(response => response.json().data as Speler)
             .catch(this.handleError);
     }
 
-    /*     getWedstrijden(): Promise<Wedstrijd[]> {
-            return this.http.get(this.wedstrijdenUrl)
-            .toPromise()
-            .then(response => response.json().data as Wedstrijd[])
-            .catch(this.handleError);
-        }
-    
-        getSpelerWedstrijden(): Promise<SpelerWedstrijd[]> {
-            return this.http.get(this.spelerwedstrijdUrl)
-                .toPromise()
-                .then(response => response.json().data as SpelerWedstrijd[])
-                .catch(this.handleError);
-        } */
-
     update(speler: Speler): Promise<Speler> {
-        const url = `${this.spelersUrl}/${speler.id}`;
+        const url = `${this.spelersUrl}/${speler._id}`;
         return this.http
             .put(url, JSON.stringify(speler), { headers: this.headers })
             .toPromise()
@@ -76,16 +62,8 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    /*     delete(id: number): Promise<void> {
-            const url = `${this.spelersUrl}/${id}`;
-            return this.http.delete(url, { headers: this.headers })
-                .toPromise()
-                .then(() => null)
-                .catch(this.handleError);
-        } */
-
     delete(speler: Speler): Promise<void> {
-        const url = `${this.spelersUrl}/${speler.id}`;
+        const url = `${this.spelersUrl}/${speler._id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(() => null)

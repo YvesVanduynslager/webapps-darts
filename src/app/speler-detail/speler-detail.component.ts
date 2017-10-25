@@ -29,7 +29,7 @@ export class SpelerDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(+params.get('id'))) //+convert hier naar number (was eerst string)
+    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(/*+*/params.get('id'))) //+convert hier naar number (was eerst string)
       .subscribe(speler => this.speler = speler);
   }
 }
