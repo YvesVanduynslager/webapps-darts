@@ -12,19 +12,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./wedstrijden.component.less']
 })
 export class WedstrijdDetailComponent implements OnInit {
-  speler: Speler;
-  wedstrijden: Wedstrijd[];
+  public speler: Speler;
+  public wedstrijden: Wedstrijd[];
+  public sub: any;
+  spelerId: string;
 
   constructor(private spelerService: SpelerService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router) { }
+    private router: Router) {
+      this.speler = new Speler("", ""); //lege speler instellen omdat html anders foutmelding geeft dat properties niet gelezen kunnen worden
+      //can not read property naam of undefined
+  }
 
   ngOnInit(): void {
-    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(/*+*/params.get('id'))) //hier loopt er wsl iets mis
+    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')))
       .subscribe(speler => this.speler = speler);
-
-    //hierna wedstrijden opvullen met id van speler;
   }
 
   gotoNieuweWedstrijdForm(): void {

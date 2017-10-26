@@ -37,7 +37,8 @@ export class SpelersComponent implements OnInit {
     }
     this.spelerService.create(naam) //naam.value
       .then(speler => {
-        this.spelers.push(speler);
+        //this.spelers.push(speler);
+        this.getSpelers(); //nogmaals spelers ophalen na add speler
         this.selectedSpeler = null;
       });
     return false; //event handlers return a boolean, true if you want to propagate the event to other handlers, false to "eat" the event
@@ -63,14 +64,17 @@ export class SpelersComponent implements OnInit {
         }
       });
   }
-
+  private getSpelers(){
+    this.spelerService.getSpelers().then(spelers => this.spelers =spelers);
+  }
   /*   ngOnInit(): void {
       this.getSpelers();
     } */
 
   ngOnInit(): void {
-    this.spelerService.getSpelers()
-      .then(spelers => this.spelers = spelers); //select top 2 spelers
+    this.getSpelers();
+    /* this.spelerService.getSpelers()
+      .then(spelers => this.spelers = spelers); //select top 2 spelers */
     //this._spelers = this.spelerService.spelers;
   }
 

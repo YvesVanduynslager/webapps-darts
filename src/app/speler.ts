@@ -2,15 +2,15 @@ import { Wedstrijd } from './wedstrijd';
 export class Speler {
     public _id: string;
     public naam: string;
-    public voornaam: string;
+    //public voornaam: string;
     //ALLES WAT HIER IN COMMENTAAR STAAT: data ophalen werkt anders NOG niet
 /*     public wedstrijden: Wedstrijd[];
     public totaalPunten: number = this.berekenTotaalPunten();
     public totaalVerlorenPunten: number = this.berekenTotaalVerlorenPunten();
     public aantalGespeeld: number = this.wedstrijden.length; */
 
-    public constructor(id: string, naam: string, /*voornaam: string, wedstrijden: Wedstrijd[]*/) {
-        this._id = id;
+    public constructor(_id: string, naam: string, /*voornaam: string, wedstrijden: Wedstrijd[]*/) {
+        this._id = _id;
         this.naam = naam;
         //this.voornaam = voornaam;
         //this.wedstrijden = wedstrijden;
