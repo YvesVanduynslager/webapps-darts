@@ -20,12 +20,7 @@ let Wedstrijd = mongoose.model('Wedstrijd', new mongoose.Schema({
 
 //-----------------------------------------------------------------------------------
 
-//GET home page.
-/* router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
-}); */
-
-//alle spelers ophalen
+//GET spelers
 router.get('/API/spelers/', function (req, res, next) {
   Speler.find(function (err, spelers) {
     if (err) {
@@ -35,16 +30,20 @@ router.get('/API/spelers/', function (req, res, next) {
   })/*.populate('wedstrijden')*/;
 });
 
-//get één speler
+//GET speler
 router.get('/API/spelers/:id', function (req, res, next) {
   Speler.findById(req.params.id, function (err, speler) {
-    if (err) { return next(err); }
-    if (!speler) { return next(new Error('not found ' + req.params.id)); }
+    if (err) {
+      return next(err);
+    }
+    if (!speler) {
+      return next(new Error('not found ' + req.params.id));
+    }
     res.json(speler);
   });
 });
 
-//nieuwe speler toevoegen
+//CREATE speler
 router.post('/API/spelers/', function (req, res, next) {
   let speler = new Speler(req.body);
   speler.save(function (err, post) {
@@ -55,27 +54,37 @@ router.post('/API/spelers/', function (req, res, next) {
   });
 });
 
-//speler verwijderen
-router.delete('/API/spelers/:speler', function (req, res) {
-  req.speler.remove(function (err) {
-    if (err) { return next(err); }
-    res.json("removed speler");
-  });
-});
-
-//speler edit
-router.put('/API/spelers/:speler', function (req, res) {
-  req.speler.save(function (err) {
-    if (err) { return next(err); }
+//UPDATE speler
+router.put('/API/spelers/:id', function (req, res) {
+  var query = { _id: req.params.id }; //req.params.id record moet upgedate worden, met nieuwe waardes
+  Speler.findOneAndUpdate(query, req.body, function (err) { // nieuwe waardes te vinden in req.body (json)
+    if (err) {
+      return next(err);
+    }
     res.json("updated speler");
   });
 });
 
+//DELETE speler
+router.delete('/API/spelers/:speler', function (req, res) {
+  req.speler.remove(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.json("removed speler");
+  });
+});
+
+//hulp voor DELETE speler
 router.param('speler', function (req, res, next, id) {
   let query = Speler.findById(id);
   query.exec(function (err, speler) {
-    if (err) { return next(err); }
-    if (!speler) { return next(new Error('not found ' + id)); }
+    if (err) {
+      return next(err);
+    }
+    if (!speler) {
+      return next(new Error('not found ' + id));
+    }
     req.speler = speler;
     return next();
   });

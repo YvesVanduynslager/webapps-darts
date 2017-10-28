@@ -14,7 +14,7 @@ export class SpelerService {
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
-    constructor(private http: Http) { }
+    public constructor(private http: Http) { }
 
     /*     getSpelers(): Promise<Speler[]> {
             return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
@@ -41,14 +41,13 @@ export class SpelerService {
         const url = `${this.spelersUrl}${id}`; //url naar servercommand met id parameter
         return this.http.get(url, { headers: this.headers} )
             .toPromise()
-            .then(response => {
-                console.log(response.json());//checked: ok
-                return response.json() as Speler })
+            .then(response => response.json() as Speler)
             .catch(this.handleError);
     }
 
-    update(speler: Speler): Promise<Speler> {
+    public update(speler: Speler): Promise<Speler> {
         const url = `${this.spelersUrl}${speler._id}`;
+        console.log(JSON.stringify(speler));
         return this.http
             .put(url, JSON.stringify(speler), { headers: this.headers })
             .toPromise()
@@ -56,7 +55,7 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    create(n: string): Promise<Speler> {
+    public create(n: string): Promise<Speler> {
         return this.http
             .post(this.spelersUrl, JSON.stringify({ naam: n }), { headers: this.headers })
             .toPromise()
@@ -64,7 +63,7 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    delete(speler: Speler): Promise<void> {
+    public delete(speler: Speler): Promise<void> {
         const url = `${this.spelersUrl}${speler._id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()

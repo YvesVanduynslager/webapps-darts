@@ -44,16 +44,6 @@ export class SpelersComponent implements OnInit {
     return false; //event handlers return a boolean, true if you want to propagate the event to other handlers, false to "eat" the event
   }
 
-  /* delete(speler: Speler): void {
-    this.spelerService
-      .delete(speler.id)
-      .then(() => {
-        this.spelers = this.spelers.filter(s => s !== speler);
-        if (this.selectedSpeler === speler) {
-          this.selectedSpeler = null;
-        }
-      });
-  } */
   delete(speler: Speler): void {
     this.spelerService
       .delete(speler)
@@ -67,18 +57,8 @@ export class SpelersComponent implements OnInit {
   private getSpelers(){
     this.spelerService.getSpelers().then(spelers => this.spelers =spelers);
   }
-  /*   ngOnInit(): void {
-      this.getSpelers();
-    } */
 
   ngOnInit(): void {
     this.getSpelers();
-    /* this.spelerService.getSpelers()
-      .then(spelers => this.spelers = spelers); //select top 2 spelers */
-    //this._spelers = this.spelerService.spelers;
   }
-
-  /*      get spelers() {
-        return this._spelers;
-      } */
 }
