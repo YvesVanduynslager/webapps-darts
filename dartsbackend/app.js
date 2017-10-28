@@ -11,7 +11,8 @@ var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/dartsdb', { useMongoClient: true});
+mongoose.connect('mongodb://localhost/dartsdb' || process.env.MONGO_URL, { useMongoClient: true});
+mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
