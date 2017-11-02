@@ -19,9 +19,4 @@ export class DashboardComponent implements OnInit {
       .then(spelers => this.spelers = spelers);
     //this.spelers = this.spelerService.spelers;
   }
-
-  /*    get spelers()
-    {
-      return this._spelers;
-    } */
 }

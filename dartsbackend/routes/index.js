@@ -63,7 +63,7 @@ router.post('/API/spelers/', function (req, res, next) {
     res.json(speler);
   }); */
   let speler = new Speler({ naam: req.body.naam });
-  speler.save(function (err, psot) {
+  speler.save(function (err, sp) {
     if (err) {
       return next(err);
     }
@@ -79,7 +79,7 @@ router.post('/API/spelers/:speler/wedstrijden', function (req, res, next) {
       return next(err);
     }
     req.speler.wedstrijden.push(wedstrijd);
-    req.speler.save(function (err, rec) {
+    req.speler.save(function (err, sp) {
       if (err) {
         wedstr.remove(function (err) {
           if (err) {

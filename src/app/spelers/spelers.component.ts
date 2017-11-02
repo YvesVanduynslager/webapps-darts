@@ -38,7 +38,7 @@ export class SpelersComponent implements OnInit {
     naam = naam.trim();
 
     this.spelerService.create(naam)
-      .then(speler => {
+      .then(() => {
         this.getSpelers(); //nogmaals spelers ophalen na add speler
         this.selectedSpeler = null;
       });
