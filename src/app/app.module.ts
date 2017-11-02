@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http'; //http for getting data from server
 //import routing settings
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { NieuwewedstrijdComponent } from './nieuwewedstrijd/nieuwewedstrijd.comp
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     //InMemoryWebApiModule.forRoot(InMemoryDataService),
     AppRoutingModule, //haalt routinggegevens uit AppRoutingModule op

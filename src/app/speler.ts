@@ -1,19 +1,34 @@
 import { Wedstrijd } from './wedstrijd';
 export class Speler {
-    public _id: string;
-    public naam: string;
-    //public voornaam: string;
-    //ALLES WAT HIER IN COMMENTAAR STAAT: data ophalen werkt anders NOG niet
-/*     public wedstrijden: Wedstrijd[];
-    public totaalPunten: number = this.berekenTotaalPunten();
+    private _id: string;
+    private _wedstrijden: Wedstrijd[];
+    /*public totaalPunten: number = this.berekenTotaalPunten();
     public totaalVerlorenPunten: number = this.berekenTotaalVerlorenPunten();
     public aantalGespeeld: number = this.wedstrijden.length; */
 
-    public constructor(_id: string, naam: string, /*voornaam: string, wedstrijden: Wedstrijd[]*/) {
-        this._id = _id;
-        this.naam = naam;
+    public constructor(/*_id: string, */private _naam: string, wedstrijden?: Wedstrijd[]) {
+        this._wedstrijden = wedstrijden || new Array();
+        //this._id = _id;
+        //this.naam = naam;
         //this.voornaam = voornaam;
         //this.wedstrijden = wedstrijden;
+    }
+
+    public get naam(): string{
+        return this._naam;
+    }
+
+    public get id(): string{
+        return this._id;
+    }
+
+    public get wedstrijden(): Wedstrijd[] {
+        return this._wedstrijden;
+    }
+
+    addWedstrijd(wedstr: Wedstrijd)
+    {
+        this._wedstrijden.push(wedstr);
     }
     /* private berekenTotaalPunten() {
         let totaal: number = 0;

@@ -1,16 +1,25 @@
-import {Speler} from './speler'
 export class Wedstrijd
 {
-    public id: number;
+    public _id: string;
     private readonly MAXPUNTEN: number = 3;
-    public puntenGewonnen: number;
+    //public puntenGewonnen: number;
     public puntenVerloren: number = this.MAXPUNTEN - this.puntenGewonnen;
-    public datumGespeeld: Date;
-    public tegenstanderid: number;
+    //public datumGespeeld: Date;
+    //private tegenstander: string;
 
-    public constructor(id: number, pg:number, datum:Date, tegenstanderid:number){
-        this.puntenGewonnen = pg;
+    public constructor(private _puntenGewonnen: number, private _tegenstander: string, private _datum?: Date){
+       /*  this.puntenGewonnen = puntenGewonnen;
         this.datumGespeeld = datum;
-        this.tegenstanderid = tegenstanderid;
+        this.tegenstander = tegenstander; */
+    }
+
+    get puntenGewonnen(): number {
+        return this._puntenGewonnen;
+    }
+    get datumGespeeld(): Date {
+        return this._datum;
+    }
+    get tegenstander(): string {
+        return this._tegenstander;
     }
 }

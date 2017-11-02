@@ -21,7 +21,7 @@ export class WedstrijdDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private router: Router) {
-      this.speler = new Speler("", ""); //lege speler instellen omdat html anders foutmelding geeft dat properties niet gelezen kunnen worden
+      this.speler = new Speler(""); //lege speler instellen omdat html anders foutmelding geeft dat properties niet gelezen kunnen worden
       //can not read property naam of undefined
   }
 
@@ -31,6 +31,6 @@ export class WedstrijdDetailComponent implements OnInit {
   }
 
   gotoNieuweWedstrijdForm(): void {
-    this.router.navigate(['/nieuweWedstrijd', this.speler._id]);
+    this.router.navigate(['/nieuweWedstrijd', this.speler.id]);
   }
 }

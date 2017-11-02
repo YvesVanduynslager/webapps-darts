@@ -9,12 +9,22 @@
     </li>
   </ul>
   <div>
-    <label for="naam">Naam van de speler:</label>
-    <input id="naam" name="naam" #spelerNaam/>
-    <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
+    <form [formGroup]='nieuweSpeler' (ngSubmit)='onSubmit()'>
+      <h3>Nieuwe speler:</h3>
+      <div>
+        <label for="naam">Naam:</label>
+        <input type="text" id="naam" formControlName="naam" #spelerNaam/>
+        <div class="error" *ngIf="!nieuweSpeler.valid">Naam moet ingevuld zijn en langer zijn dan 1 teken!</div>
+        <!-- <input type="text" id="naam" name="naam" #spelerNaam/> -->
+      </div>
+      <button>Voeg toe</button>
+      <!-- <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> -->
+      <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
+    </form>
+    REMOVE {{nieuweSpeler.value | json}} {{ nieuweSpeler.valid}}
   </div>
   <div *ngIf="selectedSpeler">
-      <h1>Details</h1>
+    <h1>Details</h1>
     <h2>
       Id: {{selectedSpeler._id }}
     </h2>
