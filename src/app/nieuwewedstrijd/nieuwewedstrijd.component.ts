@@ -13,25 +13,30 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 })
 export class NieuwewedstrijdComponent implements OnInit {
   private nieuweWedstrijd: FormGroup;
-  public speler: Speler;
-  public spelers: Speler[];
-  public wedstrijden: Wedstrijd[];
-  public MOGELIJKE_SCORES: number[] = [1,2,3];
+  private speler: Speler;
+  private spelers: Speler[];
+  private wedstrijden: Wedstrijd[];
+  private MOGELIJKE_SCORES: number[] = [1, 2, 3];
 
   constructor(private spelerService: SpelerService, private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private location: Location) { }
+    private location: Location) {
+    this.speler = new Speler("", "");
+    this.spelers = new Array();
+    this.wedstrijden = new Array();
+  }
 
-  public goBack(): void { //terug van waar je komt (één stap terug in browers history stack)
+  private goBack(): void { //terug van waar je komt (één stap terug in browser history stack)
     this.location.back();
   }
 
-  private onSubmit(): void{
+  private onSubmit(): void {
     if (this.nieuweWedstrijd.valid)
-    this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstander, this.nieuweWedstrijd.value.datumGespeeld) );
+      this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstander, this.nieuweWedstrijd.value.datumGespeeld));
   }
-   public ngOnInit(): void {
-    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id'))) //+convert hier naar number (was eerst string)
+
+  public ngOnInit(): void {
+    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')))
       .subscribe(speler => this.speler = speler);
 
     this.getSpelers();
@@ -43,19 +48,17 @@ export class NieuwewedstrijdComponent implements OnInit {
     });
   }
 
-  private add(wedstr: Wedstrijd): boolean {
+  private add(wedstr: Wedstrijd): boolean { //BOOLEAN?
     this.spelerService.addWedstrijdToSpeler(wedstr, this.speler);
     return false;
   }
 
-  public getSpelers(): void { //is ok, scores moeten niet weergegeven worden voor een lijst van spelers
-      this.spelerService.getSpelers()
+  private getSpelers(): void {
+    this.spelerService.getSpelers()
       .then(spelers => this.spelers = spelers); //voor promise in spelerService
-      //this._spelers = this.spelerService.spelers;
   }
 
-  public getFilteredSpelers(): Speler[] /*deze methode geeft de spelers array terug ZONDER de speler voor wie we een wedstrijd willen toevoegen 
-  deze mag natuurlijk geen wedstrijden spelen tegen zichzelf! */ {
+  private getFilteredSpelers(): Speler[] {
     return this.spelers.filter(speler => speler._id != this.speler._id);
   }
 }

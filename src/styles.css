@@ -17,6 +17,11 @@ body, input[text]{
     padding: 0.5em;
     margin-bottom: 0.4em;
 }
+.error
+{
+    color:darkred;
+    font-weight:bold;
+}
 
 button{
     font-family: Arial, Helvetica, sans-serif;
