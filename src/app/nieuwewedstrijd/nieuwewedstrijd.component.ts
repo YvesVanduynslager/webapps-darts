@@ -25,16 +25,7 @@ export class NieuwewedstrijdComponent implements OnInit {
     this.spelers = new Array();
     this.wedstrijden = new Array();
   }
-
-  private goBack(): void { //terug van waar je komt (één stap terug in browser history stack)
-    this.location.back();
-  }
-
-  private onSubmit(): void {
-    if (this.nieuweWedstrijd.valid)
-      this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstander, this.nieuweWedstrijd.value.datumGespeeld));
-  }
-
+  
   public ngOnInit(): void {
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')))
       .subscribe(speler => this.speler = speler);
@@ -44,12 +35,29 @@ export class NieuwewedstrijdComponent implements OnInit {
     this.nieuweWedstrijd = this.formBuilder.group({
       datumGespeeld: this.formBuilder.control("", [Validators.required]),
       puntenGewonnen: this.formBuilder.control("", [Validators.required]),
-      tegenstander: this.formBuilder.control("", [Validators.required, Validators.minLength(2)])
+      tegenstanderId: this.formBuilder.control("", [Validators.required])
     });
+  }
+
+  private goBack(): void { //terug van waar je komt (één stap terug in browser history stack)
+    this.location.back();
+  }
+
+  private onSubmit(): void {
+    if (this.nieuweWedstrijd.valid)
+      this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstanderId, this.nieuweWedstrijd.value.datumGespeeld));
   }
 
   private add(wedstr: Wedstrijd): boolean { //BOOLEAN?
     this.spelerService.addWedstrijdToSpeler(wedstr, this.speler);
+
+    //tegenstander moet ook een wedstrijd krijgen
+/*     let tegenstander: Speler = new Speler("","");
+    let tId = wedstr.tegenstanderId;
+    let wedstrijd: Wedstrijd = new Wedstrijd(wedstr.puntenVerloren, this.speler._id, wedstr.datumGespeeld);
+
+    this.spelerService.getSpeler(tId).then(item => tegenstander = item);
+    this.spelerService.addWedstrijdToSpeler(wedstrijd, tegenstander); */
     return false;
   }
 

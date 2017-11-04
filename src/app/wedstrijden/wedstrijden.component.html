@@ -1,6 +1,6 @@
 <div class="dropshadow">
     <h2>Wedstrijden voor: {{speler.naam}}</h2>
-    REMOVE {{speler.wedstrijden | json}}
+    REMOVE {{speler.wedstrijden | json }}
     <table>
         <tr>
             <th>Datum gespeeld</th>
@@ -8,12 +8,12 @@
             <th>Verloren punten</th>
             <th>Tegenstander</th>
         </tr>
-        <!-- <tr *ngFor="let wedstrijden of speler">
-            <td>some data</td>
-            <td>some data</td>
-            <td>some data</td>
-            <td>some data</td>
-        </tr> -->
+        <tr *ngFor="let wedstrijd of speler.wedstrijden"> <!-- wedstrijden zijn json, geen Wedstrijd -->
+            <td>{{wedstrijd.datumGespeeld}}</td>
+            <td>{{wedstrijd.puntenGewonnen}}</td>
+            <td>{{wedstrijd.puntenVerloren}}</td> <!-- moet hier niet gebeuren :( -->
+            <td>{{wedstrijd.tegenstander}}</td> <!-- in Wedstrijd is dit tegenstanderId -->
+        </tr>
     </table>
     <button (click)="gotoNieuweWedstrijdForm()">Nieuwe wedstrijd</button>
 </div>

@@ -13,16 +13,16 @@
         </select>
       </div>
       <div class="formComponent">
-        <label for="tegenstander">Tegenstander: </label>
-        <select id="tegenstander" formControlName="tegenstander" #tegenstander>
+        <label for="tegenstanderId">Tegenstander: </label>
+        <select id="tegenstanderId" formControlName="tegenstanderId" #tegenstander>
           <option>-- Selecteer een tegenstander --</option>
-          <option *ngFor="let speler of getFilteredSpelers()">{{speler.naam}}</option>
+          <option *ngFor="let speler of getFilteredSpelers()" value="{{speler._id}}">{{speler.naam}}</option>
         </select>
       </div>
-      <div class="error" *ngIf="!nieuweWedstrijd.valid">Foute input! (aparte messages nog checken, niet via nieuweWedstrijd maar via property)</div>
+      <div class="error" *ngIf="!nieuweWedstrijd.valid">Foute input! (aparte messages nog checken, niet via nieuweWedstrijd maar via property, ook niet direct weergeven, zie ergens hfst forms)</div>
     </div>
-    <button (click)="goBack()">Back</button>
-    <button type="submit">Save</button>
+    <button (click)="goBack()">Terug</button>
+    <button type="submit">Opslaan</button>
   </form>
   REMOVE {{nieuweWedstrijd.value | json}} {{ nieuweWedstrijd.valid}}
 </div>

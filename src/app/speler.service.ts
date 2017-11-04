@@ -9,18 +9,11 @@ import { Wedstrijd } from './wedstrijd';
 
 @Injectable()
 export class SpelerService {
-    private spelersUrl = 'http://localhost:4200/API/spelers/'; //zal redirecten naar port 3000 (enkel in dev)
+    private spelersUrl = 'http://localhost:4200/API/spelers/';
 
     private headers = new Headers({ 'Content-Type': 'application/json' });
 
     public constructor(private http: Http) { }
-
-    /*     getSpelers(): Promise<Speler[]> {
-            return this.http.get(this.spelersUrl) //url naar servercommand die data ophaalt
-                .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
-                .then(response => response.json().data as Speler[]) //omzetten van gekregen .json data naar Speler-object
-                .catch(this.handleError); //catch server failures and pass to handler method
-        } */
 
     public getSpelers(): Promise<Speler[]> {
         return this.http.get(this.spelersUrl, { headers: this.headers }) //url naar servercommand die data ophaalt
@@ -29,24 +22,20 @@ export class SpelerService {
             .catch(this.handleError); //catch server failures and pass to handler method
     }
 
-    /*     get spelers(): Observable<Speler[]> {
-            return this.http.get(this.spelersUrl).map(response =>
-                response.json().map(item =>
-                    new Speler(item._id, item.naam, item.voornaam))); //item.wedstrijden mappen naar wedstrijden object
-        } */
-
-    public getSpeler(id: string): Promise<Speler> { //wordt blijkbaar niet correct doorgegeven?
-        //ONDERSTAANDE MET BACKTICKS!!! AltGr + µ
-        const url = `${this.spelersUrl}${id}`; //url naar servercommand met id parameter
+    public getSpeler(id: string): Promise<Speler> {
+        const url = `${this.spelersUrl}${id}`;
         return this.http.get(url, { headers: this.headers })
             .toPromise()
-            .then(response => response.json() as Speler)
+            .then(response => {
+                let sp = response.json() as Speler;
+                sp.wedstrijden as Wedstrijd[];
+                return sp;
+            })
             .catch(this.handleError);
     }
 
     public update(speler: Speler): Promise<Speler> {
         const url = `${this.spelersUrl}${speler._id}`;
-        //console.log(JSON.stringify(speler));
         return this.http
             .put(url, JSON.stringify(speler), { headers: this.headers })
             .toPromise()
@@ -62,26 +51,24 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    //??? HMMMM ???
     public addWedstrijdToSpeler(wedstr: Wedstrijd, speler: Speler): Promise<Wedstrijd> {
         const url = `${this.spelersUrl}${speler._id}/wedstrijden`;
-        return this.http.post(url, JSON.stringify({ puntenGewonnen: wedstr.puntenGewonnen, datumGespeeld: wedstr.datumGespeeld, tegenstander: wedstr.tegenstander }),
+        return this.http.post(url, JSON.stringify({ puntenGewonnen: wedstr.puntenGewonnen, datumGespeeld: wedstr.datumGespeeld, tegenstander: wedstr.tegenstanderId }),
             { headers: this.headers }).toPromise()
             .then(res => res.json().data as Wedstrijd)
             .catch(this.handleError);
-        //'/API/spelers/:speler/wedstrijden'
     }
-
-    /*      public addWedstrijdToSpeler(wedstr: Wedstrijd, speler: Speler): Observable<Wedstrijd> {
-             const url = `${this.spelersUrl}${speler._id}`;
-             return this.http.post(`${url}/wedstrijden`, wedstr)
-             .map(res => res.json())
-             .map(item => Wedstrijd.fromJSON(item));
-             //'/API/spelers/:speler/wedstrijden'
-        } */
 
     public delete(speler: Speler): Promise<void> {
         const url = `${this.spelersUrl}${speler._id}`;
+        return this.http.delete(url, { headers: this.headers })
+            .toPromise()
+            .then(() => null)
+            .catch(this.handleError);
+    }
+
+    public deleteWedstrijd(id: string): Promise<void> {
+        const url = `http://localhost:4200/API/wedstrijden/${id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(() => null)

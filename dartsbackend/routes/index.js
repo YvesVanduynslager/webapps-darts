@@ -3,16 +3,13 @@ var router = express.Router();
 let mongoose = require('mongoose');
 
 //-----------------------------------------------------------------------------------
-
 let SpelerSchema = new mongoose.Schema({
-  //_id: mongoose.Schema.ObjectId, is niet nodig, anders geen auto generate
   naam: String,
   wedstrijden: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Wedstrijd' }]
 });
 let Speler = mongoose.model('Speler', SpelerSchema);
 
 let WedstrijdSchema = new mongoose.Schema({
-  //_id: Number, is niet nodig, anders geen auto generate
   puntenGewonnen: { type: Number, default: 0 },
   datumGespeeld: Date,
   tegenstander: String
@@ -21,34 +18,21 @@ WedstrijdSchema.pre('remove', function (next) {
   this.model('Speler').remove({ wedstrijden: this._id }, next) //CHECK
 })
 let Wedstrijd = mongoose.model('Wedstrijd', WedstrijdSchema);
-
 //-----------------------------------------------------------------------------------
 
 //GET alle spelers
 router.get('/API/spelers/', function (req, res, next) {
-  /*   Speler.find(function (err, spelers) {
-      if (err) {
-        return next(err);
-      }
-      res.json(spelers);
-    }); */
   let query = Speler.find().populate('wedstrijden');
   query.exec((err, spelers) => {
     if (err) return next(err);
     res.json(spelers);
-  })
+  });
 });
-
-//NOG WIJZIGEN OM MET WEDSTRIJDEN TE WERKEN!!!
 //GET één speler
 router.get('/API/spelers/:id', function (req, res, next) {
-  Speler.findById(req.params.id, function (err, speler) {
-    if (err) {
-      return next(err);
-    }
-    if (!speler) {
-      return next(new Error('not found ' + req.params.id));
-    }
+  let query = Speler.findById(req.params.id).populate('wedstrijden');
+  query.exec((err, speler) => {
+    if (err) return next(err);
     res.json(speler);
   });
 });
@@ -122,6 +106,23 @@ router.delete('/API/spelers/:speler', function (req, res) {
     });
 });
 
+//DELETE wedstrijd
+router.delete('/API/wedstrijden/:wedstrijd', function (req, res) {
+  req.wedstrijd.remove(function (err) {
+    if (err) return next(err);
+    res.json(req.wedstrijd);
+  });
+});
+
+router.param('wedstrijd', function (req, res, next, id) {
+  let query = Wedstrijd.findById(id);
+  query.exec(function (err, wedstrijd) {
+    if (err) return next(err);
+    if (!wedstrijd) return next(new Error('not found ' + id));
+    req.wedstrijd = wedstrijd;
+    return next();
+  });
+});
 //hulp bij ophalen van speler
 router.param('speler', function (req, res, next, id) {
   let query = Speler.findById(id);
