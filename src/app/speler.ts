@@ -1,14 +1,14 @@
 import { Wedstrijd } from './wedstrijd';
 export class Speler {
-    _id: string;
+    //_id: string;
     wedstrijden: Wedstrijd[];
     /*public totaalPunten: number = this.berekenTotaalPunten();
     public totaalVerlorenPunten: number = this.berekenTotaalVerlorenPunten();
     public aantalGespeeld: number = this.wedstrijden.length; */
 
-    public constructor(_id: string, private _naam: string, wedstrijden?: Wedstrijd[]) {
+    public constructor(private _id: string, private _naam: string, wedstrijden?: Wedstrijd[]) {
         this.wedstrijden = wedstrijden || new Array();
-        this._id = _id;
+        //this._id = _id;
 
         //this.naam = naam;
         //this.voornaam = voornaam;

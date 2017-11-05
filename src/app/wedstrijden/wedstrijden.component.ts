@@ -37,6 +37,6 @@ export class WedstrijdDetailComponent implements OnInit {
   } */
 
   gotoNieuweWedstrijdForm(): void {
-    this.router.navigate(['/nieuweWedstrijd', this.speler._id]);
+    this.router.navigate(['/nieuweWedstrijd', this.speler.id]);
   }
 }

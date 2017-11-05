@@ -31,7 +31,7 @@ export class SpelersComponent implements OnInit {
   }
 
   private gotoEdit(): void {
-    this.router.navigate(['/editSpeler', this.selectedSpeler._id]);
+    this.router.navigate(['/editSpeler', this.selectedSpeler.id]);
   }
 
   private add(naam: string): boolean {

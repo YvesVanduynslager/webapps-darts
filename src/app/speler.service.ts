@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
+// Statics
+// import 'rxjs/add/observable/throw';
+// Operators
+/* import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged'; */
+import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
 
 import { Speler } from './speler';
@@ -16,26 +24,38 @@ export class SpelerService {
     public constructor(private http: Http) { }
 
     public getSpelers(): Promise<Speler[]> {
-        return this.http.get(this.spelersUrl, { headers: this.headers }) //url naar servercommand die data ophaalt
+        return this.http.get(this.spelersUrl).map(response =>
+            response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
+                .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
             .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
-            .then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
+            //.then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
             .catch(this.handleError); //catch server failures and pass to handler method
     }
 
     public getSpeler(id: string): Promise<Speler> {
         const url = `${this.spelersUrl}${id}`;
-        return this.http.get(url, { headers: this.headers })
+
+        return this.http.get(url).map(response =>
+            response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
+                .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
+            .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
+            //.then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
+            .catch(this.handleError); //catch server failures and pass to handler method
+        /* return this.http.get(url).map(response =>
+            response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden)))
             .toPromise()
-            .then(response => {
-                let sp = response.json() as Speler;
-                sp.wedstrijden as Wedstrijd[];
-                return sp;
-            })
-            .catch(this.handleError);
+            /*             .then(response => {
+                            let sp = response.json() as Speler;
+                            sp.wedstrijden as Wedstrijd[];
+                            return sp; */
+
+            /*                 })
+                        }) */
+            //.catch(this.handleError);
     }
 
     public update(speler: Speler): Promise<Speler> {
-        const url = `${this.spelersUrl}${speler._id}`;
+        const url = `${this.spelersUrl}${speler.id}`;
         return this.http
             .put(url, JSON.stringify(speler), { headers: this.headers })
             .toPromise()
@@ -52,7 +72,7 @@ export class SpelerService {
     }
 
     public addWedstrijdToSpeler(wedstr: Wedstrijd, speler: Speler): Promise<Wedstrijd> {
-        const url = `${this.spelersUrl}${speler._id}/wedstrijden`;
+        const url = `${this.spelersUrl}${speler.id}/wedstrijden`;
         return this.http.post(url, JSON.stringify({ puntenGewonnen: wedstr.puntenGewonnen, datumGespeeld: wedstr.datumGespeeld, tegenstander: wedstr.tegenstanderId }),
             { headers: this.headers }).toPromise()
             .then(res => res.json().data as Wedstrijd)
@@ -60,7 +80,7 @@ export class SpelerService {
     }
 
     public delete(speler: Speler): Promise<void> {
-        const url = `${this.spelersUrl}${speler._id}`;
+        const url = `${this.spelersUrl}${speler.id}`;
         return this.http.delete(url, { headers: this.headers })
             .toPromise()
             .then(() => null)

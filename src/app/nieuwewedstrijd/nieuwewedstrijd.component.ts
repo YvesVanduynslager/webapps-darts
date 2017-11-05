@@ -67,6 +67,6 @@ export class NieuwewedstrijdComponent implements OnInit {
   }
 
   private getFilteredSpelers(): Speler[] {
-    return this.spelers.filter(speler => speler._id != this.speler._id);
+    return this.spelers.filter(speler => speler.id != this.speler.id);
   }
 }
