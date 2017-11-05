@@ -1,30 +1,28 @@
 import { Speler } from './speler';
 export class Wedstrijd
 {
-    public _id: string;
-    private readonly MAXPUNTEN: number = 3;
-    //public puntenVerloren: number = this.MAXPUNTEN - this.puntenGewonnen;
+    _id: string;
 
-    public constructor(private _puntenGewonnen: number, private _tegenstanderId: string, private _datum?: Date){
+    public constructor(private _puntenGewonnen: number, private _tegenstanderId: string, private _datumGespeeld: Date, id?: string){
+        this._id = id;
     }
 
+    get id(): string{
+        return this._id;
+    }
     get puntenGewonnen(): number {
         return this._puntenGewonnen;
     }
     get datumGespeeld(): Date {
-        //return this._datum.getDay + "/" + this._datum.getMonth + "/" + this._datum.getFullYear;
-        return this._datum;
+        return this._datumGespeeld;
     }
-     get tegenstanderId(): string {
+    get tegenstanderId(): string {
         return this._tegenstanderId;
     }
     get puntenVerloren(): number {
-        return this.MAXPUNTEN - this._puntenGewonnen;
+        return 3 - this._puntenGewonnen;
     }
-    set puntenGewonnen(pg:number) {
-        this._puntenGewonnen = pg;
+    get datum(): string {
+        return this._datumGespeeld.getDay + "/" + this.datumGespeeld.getMonth + "/" + this.datumGespeeld.getFullYear;
     }
-/*     set tegenstanderId(id:string) {
-        this._tegenstanderId = id;
-    } */
 }

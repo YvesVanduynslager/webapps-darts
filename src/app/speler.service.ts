@@ -26,32 +26,24 @@ export class SpelerService {
     public getSpelers(): Promise<Speler[]> {
         return this.http.get(this.spelersUrl).map(response =>
             response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
-                .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
+                .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstanderId, w.datumGespeeld))))) //url naar servercommand die data ophaalt
             .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
             //.then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
             .catch(this.handleError); //catch server failures and pass to handler method
     }
 
-    public getSpeler(id: string): Promise<Speler> {
+    public getSpeler(id: string): Observable<Speler> {
+        /*In de speler functie is de json() een speler, en geen array, en dus lukt map niet.
+        De functie daar afsluiten en een map toepassen op de observable<any> die gereturned wordt zou wel lukken.
+        Ik dacht dat ik het in mijn slides ook zo doe, kijk eens naar die van hoofdstuk 5.*/
         const url = `${this.spelersUrl}${id}`;
-
-        return this.http.get(url).map(response =>
-            response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
-                .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
-            .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
-            //.then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
-            .catch(this.handleError); //catch server failures and pass to handler method
-        /* return this.http.get(url).map(response =>
-            response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden)))
-            .toPromise()
-            /*             .then(response => {
-                            let sp = response.json() as Speler;
-                            sp.wedstrijden as Wedstrijd[];
-                            return sp; */
-
-            /*                 })
-                        }) */
-            //.catch(this.handleError);
+        return this.http.get(url).map(response => response.json()); 
+        /*         return this.http.get(url).map(response =>
+                    response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
+                        .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
+                    .toPromise() */
+        //.then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
+        //.catch(this.handleError);
     }
 
     public update(speler: Speler): Promise<Speler> {
@@ -71,8 +63,8 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    public addWedstrijdToSpeler(wedstr: Wedstrijd, speler: Speler): Promise<Wedstrijd> {
-        const url = `${this.spelersUrl}${speler.id}/wedstrijden`;
+    public addWedstrijdToSpeler(wedstr: Wedstrijd, id:string): Promise<Wedstrijd> {
+        const url = `${this.spelersUrl}${id}/wedstrijden`;
         return this.http.post(url, JSON.stringify({ puntenGewonnen: wedstr.puntenGewonnen, datumGespeeld: wedstr.datumGespeeld, tegenstander: wedstr.tegenstanderId }),
             { headers: this.headers }).toPromise()
             .then(res => res.json().data as Wedstrijd)

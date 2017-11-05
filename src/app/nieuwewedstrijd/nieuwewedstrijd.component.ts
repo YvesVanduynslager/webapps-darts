@@ -49,7 +49,7 @@ export class NieuwewedstrijdComponent implements OnInit {
   }
 
   private add(wedstr: Wedstrijd): boolean { //BOOLEAN?
-    this.spelerService.addWedstrijdToSpeler(wedstr, this.speler);
+    this.spelerService.addWedstrijdToSpeler(wedstr, this.speler._id);
 
     //tegenstander moet ook een wedstrijd krijgen
 /*     let tegenstander: Speler = new Speler("","");
@@ -67,6 +67,6 @@ export class NieuwewedstrijdComponent implements OnInit {
   }
 
   private getFilteredSpelers(): Speler[] {
-    return this.spelers.filter(speler => speler.id != this.speler.id);
+    return this.spelers.filter(speler => speler._id != this.speler._id);
   }
 }
