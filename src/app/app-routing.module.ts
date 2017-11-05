@@ -7,6 +7,7 @@ import { SpelerDetailComponent } from './speler-detail/speler-detail.component';
 import { WedstrijdDetailComponent} from './wedstrijden/wedstrijden.component';
 import { NieuwewedstrijdComponent} from './nieuwewedstrijd/nieuwewedstrijd.component';
 import { InfoComponent } from './info/info.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
     {path: '', redirectTo: '/dashboard', pathMatch:'full'},
@@ -15,11 +16,13 @@ const routes: Routes = [
     {path: 'nieuweWedstrijd/:id', component: NieuwewedstrijdComponent},
     {path: 'wedstrijden/:id', component: WedstrijdDetailComponent},
     {path: 'spelers', component: SpelersComponent},
-    {path: 'info', component: InfoComponent}
+    {path: 'info', component: InfoComponent},
+    {path: '**', component: PagenotfoundComponent},
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
+    declarations: [],
     exports: [RouterModule]
 })
 
