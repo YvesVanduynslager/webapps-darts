@@ -2,25 +2,20 @@
     <h2>Rangschikking (klik op een naam van een speler voor details)</h2>
     <table>
         <tr>
+            <th>Plaats</th>
             <th>Speler</th>
             <th>Totaal gewonnen punten</th>
             <th>Totaal verloren punten</th>
             <th>Matches gespeeld</th>
         </tr>
-        <tr *ngFor="let speler of spelers" [routerLink]="['/wedstrijden', speler.id]">
+        <tr *ngFor="let speler of spelers; let i = index" [routerLink]="['/wedstrijden', speler.id]">
+            <td>{{i+1}}</td>
             <td>
                 <h4>{{speler.naam}}</h4>
-                <!-- totaal gewonnen punten
-            totaal verloren punten
-            matches gespeeld
-            detail-link gaat naar wedstrijd-detail met lijst van zijn wedstrijden
-            de detail methode haalt spelerwedstrijden op
-        SpelerWedstrijd slaat spelerid, wedstrijdid, verlorenpunten, gewonnen punten op-->
             </td>
             <td>{{speler.totaalPunten}}</td>
             <td>{{speler.totaalVerlorenPunten}}</td>
             <td>{{speler.aantalGespeeld}}</td>
         </tr>
         </table>
-        {{spelers | json}}
 </div>

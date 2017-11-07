@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class WedstrijdDetailComponent implements OnInit {
   public speler: Speler;
 
-  constructor(private spelerService: SpelerService,
+  public constructor(private spelerService: SpelerService,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router) {
@@ -22,13 +22,20 @@ export class WedstrijdDetailComponent implements OnInit {
     //can not read property naam of undefined
   }
 
-  ngOnInit(): void {
+
+  private parseDatum(datum: string): string {
+    let dag: string = datum.substr(8, 2);
+    let maand: string = datum.substr(5, 2);
+    let jaar: string = datum.substr(0, 4);
+    return dag + " / " + maand + " / " + jaar;
+  }
+  public ngOnInit(): void {
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
-      .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstanderId, w.datumGespeeld)))))
+      .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, this.parseDatum(w.datumGespeeld))))))
       .subscribe(speler => this.speler = speler);
   }
 
-  gotoNieuweWedstrijdForm(): void {
+  private gotoNieuweWedstrijdForm(): void {
     this.router.navigate(['/nieuweWedstrijd', this.speler.id]);
   }
 }

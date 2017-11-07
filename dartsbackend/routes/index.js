@@ -11,8 +11,9 @@ let Speler = mongoose.model('Speler', SpelerSchema);
 
 let WedstrijdSchema = new mongoose.Schema({
   puntenGewonnen: { type: Number, default: 0 },
-  datumGespeeld: Date,
-  tegenstanderId: String
+  //datumGespeeld: Date,
+  datumGespeeld: {type: Date, default: Date.now() },
+  tegenstander: String
 });
 WedstrijdSchema.pre('remove', function (next) {
   this.model('Speler').remove({ wedstrijden: this._id }, next) //CHECK
