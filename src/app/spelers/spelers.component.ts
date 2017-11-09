@@ -65,8 +65,5 @@ export class SpelersComponent implements OnInit {
     this.nieuweSpeler = this.formBuilder.group({
       naam: this.formBuilder.control('', [Validators.required, Validators.minLength(2)])
     });
-    /* this.nieuweSpeler = new FormGroup({
-      naam: new FormControl('', [Validators.required, Validators.minLength(2)])
-    }); */
   }
 }

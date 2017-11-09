@@ -12,6 +12,10 @@ export class Speler {
         return this._naam;
     }
 
+    public set naam(naam:string){
+        this._naam = naam;
+    }
+
     public get id(): string{
         return this._id;
     }

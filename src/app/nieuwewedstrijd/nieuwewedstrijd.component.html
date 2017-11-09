@@ -15,12 +15,12 @@
       <div class="formComponent">
         <label for="tegenstander">Tegenstander: </label>
         <select id="tegenstander" formControlName="tegenstander" #tegenstander>
-          <option>-- Selecteer een tegenstander --</option>
+          <option value="">-- Selecteer een tegenstander --</option>
           <option *ngFor="let speler of getFilteredSpelers()" value="{{speler.naam}}">{{speler.naam}}</option>
         </select>
       </div>
-      <div class="error" *ngIf="!nieuweWedstrijd.valid">Foute input! (aparte messages nog checken, niet via nieuweWedstrijd maar via property, ook niet direct weergeven, zie ergens hfst forms)</div>
     </div>
+    <div class="error" *ngIf="!nieuweWedstrijd.valid">Alle velden moeten ingevuld zijn!</div>
     <button (click)="goBack()">Terug</button>
     <button type="submit">Opslaan</button>
   </form>

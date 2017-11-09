@@ -27,13 +27,13 @@
   </div>
   <div id="details" class="dropshadow" *ngIf="selectedSpeler">
     <h2>Details</h2>
-<!--     <h3>
+    <!--     <h3>
       Id: {{selectedSpeler._id }}
     </h3> -->
     <h3>
       Naam: {{selectedSpeler.naam | uppercase}}
     </h3>
     <!-- hier nog details toevoegen zoals adres etc... -->
-    <button (click)="gotoEdit()">Wijzig spelergegevens</button>
+    <button (click)="gotoEdit()">Speler aanpassen</button>
   </div>
 </div>

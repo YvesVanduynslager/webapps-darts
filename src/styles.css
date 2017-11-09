@@ -20,12 +20,28 @@ body, input[text]{
 }
 .error
 {
+    margin-top:.5em;
+    margin-bottom:.5em;
     color:darkred;
     font-weight:bold;
 }
 
+input{
+    height: 1.5em;
+    font-size: 1em;
+    padding-left: .4em;
+    margin-bottom:.4em;
+}
 button{
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial;
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer; cursor: hand;
+}
+button:hover{
+    background-color: #cfd8dc;
 }
 @media (max-width: 600px){
     body{

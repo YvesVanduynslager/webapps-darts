@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { Speler } from '../speler';
 import { SpelerService } from '../speler.service';
@@ -13,26 +14,44 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./speler-detail.component.less']
 })
 export class SpelerDetailComponent implements OnInit {
+  private wijzigSpeler: FormGroup;
   speler: Speler;
 
-  constructor(private spelerService: SpelerService,
+  constructor(private spelerService: SpelerService, private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private location: Location) {
-      //this.speler = new Speler("", "");
-     }
+    //this.speler = new Speler("", "");
+  }
 
-  goBack(): void { //terug van waar je komt (één stap terug in browers history stack)
+  private onSubmit(): void {
+    if (this.wijzigSpeler.valid)
+      //this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstander, this.nieuweWedstrijd.value.datumGespeeld));
+      this.updateSpeler(this.wijzigSpeler.value.naam);
+  }
+
+  private add(punten: number, datum: string, tegenstander: string): void { //BOOLEAN?
+    this.spelerService.addWedstrijdToSpeler(punten, datum, tegenstander, this.speler._id);
+
+    this.goBack();
+  }
+
+  private goBack(): void { //terug van waar je komt (één stap terug in browers history stack)
     this.location.back();
   }
 
-  save(): void {
-    console.log(this.speler);
+  private updateSpeler(naam: string): void {
+    //console.log(this.speler);
+    this.speler.naam = naam;
     this.spelerService.update(this.speler)
-    .then(() => this.goBack());
+      .then(() => this.goBack());
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id'))) //+convert hier naar number (was eerst string)
       .subscribe(speler => this.speler = speler);
+
+    this.wijzigSpeler = this.formBuilder.group({
+      naam: this.formBuilder.control("", [Validators.required, Validators.minLength(2)])
+    });
   }
 }
