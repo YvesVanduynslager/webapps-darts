@@ -1,36 +1,38 @@
 <div class="dropshadow">
-  <h2>Spelers</h2>
-  <ul class="spelers">
-    <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
-      <span>{{speler.naam}}</span>
-      <button class="delete" (click)="delete(speler); $event.stopPropagation()">x</button>
-      <!-- $event.stopPropagation zorgt er hier voor dat de het click event niet verder gezet wordt, zie onSelect
+  <div id="spelers">
+    <h2>Spelers</h2>
+    <ul class="spelerlijst">
+      <li *ngFor="let speler of spelers" [class.selected]="speler === selectedSpeler" (click)="onSelect(speler)">
+        <span>{{speler.naam}}</span>
+        <button class="delete" (click)="delete(speler); $event.stopPropagation()">x</button>
+        <!-- $event.stopPropagation zorgt er hier voor dat de het click event niet verder gezet wordt, zie onSelect
     zodanig dat er geen speler aan selectedSpeler wordt toegekend-->
-    </li>
-  </ul>
-  <div>
-    <form [formGroup]='nieuweSpeler' (ngSubmit)='onSubmit()'>
-      <h3>Nieuwe speler:</h3>
-      <div>
-        <label for="naam">Naam:</label>
-        <input type="text" id="naam" formControlName="naam" #spelerNaam/>
-        <div class="error" *ngIf="!nieuweSpeler.valid">Naam moet ingevuld zijn en langer zijn dan 1 teken!</div>
-        <!-- <input type="text" id="naam" name="naam" #spelerNaam/> -->
-      </div>
-      <button type="submit">Voeg toe</button>
-      <!-- <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> -->
-      <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
-    </form>
-    REMOVE {{nieuweSpeler.value | json}} {{ nieuweSpeler.valid}}
+      </li>
+    </ul>
+    <div id="nieuwespeler">
+      <form [formGroup]='nieuweSpeler' (ngSubmit)='onSubmit()'>
+        <h3>Nieuwe speler:</h3>
+        <div>
+          <label for="naam">Naam:</label>
+          <input type="text" id="naam" formControlName="naam" #spelerNaam/>
+          <div class="error" *ngIf="!nieuweSpeler.valid">Naam moet ingevuld zijn en langer zijn dan 1 teken!</div>
+          <!-- <input type="text" id="naam" name="naam" #spelerNaam/> -->
+        </div>
+        <button type="submit">Voeg toe</button>
+        <!-- <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> -->
+        <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
+      </form>
+      REMOVE {{nieuweSpeler.value | json}} {{ nieuweSpeler.valid}}
+    </div>
   </div>
-  <div *ngIf="selectedSpeler">
-    <h1>Details</h1>
-    <h2>
+  <div id="details" class="dropshadow" *ngIf="selectedSpeler">
+    <h2>Details</h2>
+<!--     <h3>
       Id: {{selectedSpeler._id }}
-    </h2>
-    <h2>
+    </h3> -->
+    <h3>
       Naam: {{selectedSpeler.naam | uppercase}}
-    </h2>
+    </h3>
     <!-- hier nog details toevoegen zoals adres etc... -->
     <button (click)="gotoEdit()">Wijzig spelergegevens</button>
   </div>

@@ -7,17 +7,20 @@ let SpelerSchema = new mongoose.Schema({
   naam: String,
   wedstrijden: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Wedstrijd' }]
 });
+SpelerSchema.pre('remove', function(next) {
+  this.model('Wedstrijd').remove({ wedstrijden: this._id }, next);
+});
 let Speler = mongoose.model('Speler', SpelerSchema);
 
 let WedstrijdSchema = new mongoose.Schema({
   puntenGewonnen: { type: Number, default: 0 },
   //datumGespeeld: Date,
-  datumGespeeld: {type: Date, default: Date.now() },
+  datumGespeeld: /*{type: Date, default: Date.now() }*/String,
   tegenstander: String
 });
-WedstrijdSchema.pre('remove', function (next) {
+/* WedstrijdSchema.pre('remove', function (next) {
   this.model('Speler').remove({ wedstrijden: this._id }, next) //CHECK
-})
+}) */
 let Wedstrijd = mongoose.model('Wedstrijd', WedstrijdSchema);
 //-----------------------------------------------------------------------------------
 
@@ -57,8 +60,8 @@ router.post('/API/spelers/', function (req, res, next) {
 });
 
 //ADD Wedstrijd to speler
-router.post('/API/spelers/:speler/wedstrijden', function (req, res, next) {
-  let wedstr = new Wedstrijd(req.body);
+router.post('/API/spelers/:speler/wedstrijden/', function (req, res, next) {
+  let wedstr = new Wedstrijd(/*req.body*/{puntenGewonnen: req.body.puntenGewonnen, datumGespeeld: req.body.datumGespeeld, tegenstander: req.body.tegenstander});
   wedstr.save(function (err, wedstrijd) {
     if (err) {
       return next(err);

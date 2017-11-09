@@ -22,20 +22,31 @@ export class WedstrijdDetailComponent implements OnInit {
     //can not read property naam of undefined
   }
 
-
   private parseDatum(datum: string): string {
+    console.log(datum);
     let dag: string = datum.substr(8, 2);
     let maand: string = datum.substr(5, 2);
     let jaar: string = datum.substr(0, 4);
     return dag + " / " + maand + " / " + jaar;
   }
   public ngOnInit(): void {
+    this.getWedstrijdDetails();
+  }
+
+  /* Ik haal hier de speler ook opnieuw op , ipv enkel de wedstrijden, omdat de totale score van alle wedstrijden in Speler berekend wordt */
+  private getWedstrijdDetails(): void {
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
-      .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, this.parseDatum(w.datumGespeeld))))))
+      .map(w => new Wedstrijd(w._id, w.puntenGewonnen, this.parseDatum(w.datumGespeeld), w.tegenstander)))))
       .subscribe(speler => this.speler = speler);
   }
 
   private gotoNieuweWedstrijdForm(): void {
     this.router.navigate(['/nieuweWedstrijd', this.speler.id]);
+  }
+
+  private delete(wedstrijd: Wedstrijd): void {
+    this.spelerService
+      .deleteWedstrijd(wedstrijd.id)
+      .then(() => this.getWedstrijdDetails());
   }
 }

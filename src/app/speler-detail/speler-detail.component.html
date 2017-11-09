@@ -3,13 +3,13 @@
     <!-- als speler waarde heeft -->
     <h2>{{speler.naam}} details</h2>
     <div>
-      <label>id: </label>{{speler.id}}
+      <label>id: </label>{{speler._id}}
     </div>
     <div>
       <label>name: </label>
       <input [(ngModel)]="speler.naam" placeholder="naam" />
     </div>
-    <button (click)="goBack()">Back</button>
-    <button (click)="save()">Save</button>
+    <button (click)="goBack()">Terug</button>
+    <button (click)="save()">Opslaan</button>
   </div>
 </div>

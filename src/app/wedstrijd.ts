@@ -1,18 +1,23 @@
 import { Speler } from './speler';
 export class Wedstrijd
 {
-    public constructor(private _puntenGewonnen: number, private _tegenstander: string, private _datumGespeeld: string/*, id?: string*/){
+    _id:string;
+    public constructor(_id: string, private _puntenGewonnen: number, private _datumGespeeld: string, private _tegenstander: string){
+        this._id = _id;
     }
-    get puntenGewonnen(): number {
+    public get id(): string{
+        return this._id;
+    }
+    public get puntenGewonnen(): number {
         return this._puntenGewonnen;
     }
-    get tegenstander(): string {
+    public get tegenstander(): string {
         return this._tegenstander;
     }
-    get datumGespeeld(): string {
+    public get datumGespeeld(): string {
         return this._datumGespeeld;
     }
-    get puntenVerloren(): number {
+    public get puntenVerloren(): number {
         return 3 - this._puntenGewonnen;
     }
 }

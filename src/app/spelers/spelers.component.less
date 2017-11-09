@@ -1,8 +1,9 @@
 .selected {
-    background-color: #CFD8DC !important;
+    background-color: rgba(50, 50, 50, 0.50) !important;
+    border: 1px solid black;
     color:white;
 }
-.spelers {
+.spelerlijst {
     //margin: 0 0 2em 0;
     list-style-type: none;
     padding:0;
@@ -11,7 +12,8 @@
         padding:0.5em;
         cursor: pointer;
         position: relative;
-        background-color: #EEE;
+        background-color: rgb(126, 137, 143);
+        border: 1px solid #DDD;
         margin: .2em;
         height: 1em;
         .selected:hover {
@@ -26,8 +28,23 @@
 }
 button.delete {
     float: right;
-     margin-top: 2px;
+    margin-top: 2px;
     margin-right: .8em;
     background-color: gray !important;
     color:white;
+}
+
+#spelers{
+    float:left;
+    max-width:40%;
+}
+#details{
+    float:right;
+    overflow:auto;
+    width: 30%;
+    max-width: 40%;
+    box-shadow: #000 3px 3px 6px 1px;
+    background-color: rgba(50, 50, 50, 0.50);
+    padding: 0.5em;
+    margin-bottom: 0.4em;
 }

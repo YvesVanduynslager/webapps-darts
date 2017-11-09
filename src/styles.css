@@ -1,6 +1,6 @@
 body{
     margin: 0 15em;
-    background-color:gray; 
+    background-color:gray;    
 }
 body, input[text]{
     color: #888;
@@ -12,6 +12,7 @@ body, input[text]{
 }
 .dropshadow
 {
+    overflow:auto;
     box-shadow: #000 3px 3px 6px 1px;
     background-color: steelblue;
     padding: 0.5em;

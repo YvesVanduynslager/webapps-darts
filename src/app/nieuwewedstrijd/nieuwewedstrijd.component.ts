@@ -33,8 +33,8 @@ export class NieuwewedstrijdComponent implements OnInit {
     this.getSpelers();
 
     this.nieuweWedstrijd = this.formBuilder.group({
-      datumGespeeld: this.formBuilder.control("", [Validators.required]),
       puntenGewonnen: this.formBuilder.control("", [Validators.required]),
+      datumGespeeld: this.formBuilder.control("", [Validators.required]),
       tegenstander: this.formBuilder.control("", [Validators.required, Validators.minLength(2)])
     });
   }
@@ -45,20 +45,17 @@ export class NieuwewedstrijdComponent implements OnInit {
 
   private onSubmit(): void {
     if (this.nieuweWedstrijd.valid)
-      this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstander, this.nieuweWedstrijd.value.datumGespeeld));
-  }
+      //this.add(new Wedstrijd(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.tegenstander, this.nieuweWedstrijd.value.datumGespeeld));
+      this.add(this.nieuweWedstrijd.value.puntenGewonnen, this.nieuweWedstrijd.value.datumGespeeld, this.nieuweWedstrijd.value.tegenstander);
+    }
 
-  private add(wedstr: Wedstrijd): boolean { //BOOLEAN?
-    this.spelerService.addWedstrijdToSpeler(wedstr, this.speler._id);
+/*   private add(wedstr: Wedstrijd): boolean { //BOOLEAN?
+    this.spelerService.addWedstrijdToSpeler(wedstr, this.speler._id); */
 
-    //tegenstander moet ook een wedstrijd krijgen
-/*     let tegenstander: Speler = new Speler("","");
-    let tId = wedstr.tegenstanderId;
-    let wedstrijd: Wedstrijd = new Wedstrijd(wedstr.puntenVerloren, this.speler._id, wedstr.datumGespeeld);
+    private add(punten: number, datum: string, tegenstander: string): void { //BOOLEAN?
+      this.spelerService.addWedstrijdToSpeler(punten, datum, tegenstander, this.speler._id);
 
-    this.spelerService.getSpeler(tId).then(item => tegenstander = item);
-    this.spelerService.addWedstrijdToSpeler(wedstrijd, tegenstander); */
-    return false;
+     this.goBack();
   }
 
   private getSpelers(): void {

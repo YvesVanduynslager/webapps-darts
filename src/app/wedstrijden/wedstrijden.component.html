@@ -1,17 +1,22 @@
 <div class="dropshadow">
     <h2>Wedstrijden voor: {{speler.naam}}</h2>
+    {{speler.wedstrijden | json}}
     <table>
         <tr>
             <th>Datum gespeeld</th>
             <th>Gewonnen punten</th>
             <th>Verloren punten</th>
             <th>Tegenstander</th>
+            <th><i>Acties</i></th>
         </tr>
         <tr *ngFor="let wedstrijd of speler.wedstrijden">
             <td>{{wedstrijd.datumGespeeld}}</td>
             <td>{{wedstrijd.puntenGewonnen}}</td>
             <td>{{wedstrijd.puntenVerloren}}</td>
             <td>{{wedstrijd.tegenstander}}</td>
+            <td>
+                <button class="delete" (click)="delete(wedstrijd); $event.stopPropagation()">x</button>
+            </td>
         </tr>
     </table>
     <button (click)="gotoNieuweWedstrijdForm()">Nieuwe wedstrijd</button>

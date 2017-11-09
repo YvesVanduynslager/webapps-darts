@@ -26,7 +26,7 @@ export class SpelerService {
     public getSpelers(): Promise<Speler[]> {
         return this.http.get(this.spelersUrl).map(response =>
             response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
-                .map(w => new Wedstrijd(w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
+                .map(w => new Wedstrijd(w._id, w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
             .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!
             //.then(response => response.json() as Speler[]/*.map(item => new Speler(item._id, item.naam))*/) //omzetten van gekregen .json data naar Speler-object
             .catch(this.handleError); //catch server failures and pass to handler method
@@ -47,7 +47,7 @@ export class SpelerService {
     }
 
     public update(speler: Speler): Promise<Speler> {
-        const url = `${this.spelersUrl}${speler.id}`;
+        const url = `${this.spelersUrl}${speler._id}`;
         return this.http
             .put(url, JSON.stringify(speler), { headers: this.headers })
             .toPromise()
@@ -63,9 +63,10 @@ export class SpelerService {
             .catch(this.handleError);
     }
 
-    public addWedstrijdToSpeler(wedstr: Wedstrijd, id: string): Promise<Wedstrijd> {
-        const url = `${this.spelersUrl}${id}/wedstrijden`;
-        return this.http.post(url, JSON.stringify({ puntenGewonnen: wedstr.puntenGewonnen, datumGespeeld: wedstr.datumGespeeld, tegenstander: wedstr.tegenstander }),
+    public addWedstrijdToSpeler(/*wedstr: Wedstrijd,*/punten: number, datum: string, tegenst: string, id: string): Promise<Wedstrijd> {
+        const url = `${this.spelersUrl}${id}/wedstrijden/`;
+        //return this.http.post(url, JSON.stringify({ puntenGewonnen: wedstr.puntenGewonnen, datumGespeeld: wedstr.datumGespeeld, tegenstander: wedstr.tegenstander }),
+        return this.http.post(url, JSON.stringify({ puntenGewonnen: punten, datumGespeeld: datum, tegenstander: tegenst }),
             { headers: this.headers }).toPromise()
             .then(res => res.json().data as Wedstrijd)
             .catch(this.handleError);
