@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Speler } from '../speler';
 import { SpelerService } from '../speler.service';
 
+/* import { Speler } from '../../speler';
+import { SpelerService } from '../../speler.service'; */
+
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Speler } from '../speler';
 import { SpelerService } from '../speler.service';
+/* import { Speler } from '../../speler';
+import { SpelerService } from '../../speler.service'; */
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({

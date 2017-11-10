@@ -4,6 +4,11 @@ import { Location } from '@angular/common';
 import { Speler } from '../speler';
 import { Wedstrijd } from '../wedstrijd';
 import { SpelerService } from '../speler.service';
+
+/* import { Speler } from '../../speler';
+import { Wedstrijd } from '../../wedstrijd';
+import { SpelerService } from '../../speler.service'; */
+
 import { Router } from '@angular/router';
 
 @Component({
