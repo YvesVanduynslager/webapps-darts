@@ -40,13 +40,14 @@ export class WedstrijdDetailComponent implements OnInit {
 
   /* Ik haal hier de speler ook opnieuw op , ipv enkel de wedstrijden, omdat de totale score van alle wedstrijden in Speler berekend wordt */
   private getWedstrijdDetails(): void {
-    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
+    //geen gebruik van SpelerResolver, omdat wedstrijden gemapt moeten worden naar Wedstrijd objecten, moet wel mogelijk zijn, but yeah...
+     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
       .map(w => new Wedstrijd(w._id, w.puntenGewonnen, this.parseDatum(w.datumGespeeld), w.tegenstander)))))
       .subscribe(speler => this.speler = speler);
   }
 
   private gotoNieuweWedstrijdForm(): void {
-    this.router.navigate(['/nieuweWedstrijd', this.speler.id]);
+    this.router.navigate(['darts/nieuweWedstrijd', this.speler.id]);
   }
 
   private delete(wedstrijd: Wedstrijd): void {

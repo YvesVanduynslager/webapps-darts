@@ -14,3 +14,5 @@ export class SpelerResolver implements Resolve<Speler>{
         return this.spelerService.getSpeler(route.params['id']);
     }
 }
+//Een resolver wordt gebruikt om een component niet te laden voor zijn inhoud is geladen. Hier een spelerobject.
+//prefetchen van data

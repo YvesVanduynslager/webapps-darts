@@ -9,7 +9,7 @@
     zodanig dat er geen speler aan selectedSpeler wordt toegekend-->
       </li>
     </ul>
-    <div id="nieuwespeler">
+    <div id="nieuweSpeler" class="dropshadow">
       <form [formGroup]='nieuweSpeler' (ngSubmit)='onSubmit()'>
         <h3>Nieuwe speler:</h3>
         <div>
@@ -22,14 +22,11 @@
         <!-- <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> -->
         <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
       </form>
-      REMOVE {{nieuweSpeler.value | json}} {{ nieuweSpeler.valid}}
+      <!--REMOVE {{nieuweSpeler.value | json}} {{ nieuweSpeler.valid}}-->
     </div>
   </div>
   <div id="details" class="dropshadow" *ngIf="selectedSpeler">
     <h2>Details</h2>
-    <!--     <h3>
-      Id: {{selectedSpeler._id }}
-    </h3> -->
     <h3>
       Naam: {{selectedSpeler.naam | uppercase}}
     </h3>
