@@ -32,7 +32,6 @@
 npm-debug.log
 testem.log
 /typings
-/dartsbackend/app-env
 
 # e2e
 /e2e/*.js
@@ -41,3 +40,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# env vars
+/dartsbackend/app-env

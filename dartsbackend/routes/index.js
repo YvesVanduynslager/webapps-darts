@@ -1,5 +1,3 @@
-import { StringDecoder } from 'string_decoder';
-
 var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
@@ -50,7 +48,7 @@ UserSchema.methods.generateJWT = function () {
     _id: this._id,
     username: this.username,
     exp: parseInt(exp.getTime() / 1000)
-  }, SECRET);
+  }, process.env.DARTS_SECRET);
 };
 
 
