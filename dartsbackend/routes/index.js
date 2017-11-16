@@ -1,28 +1,58 @@
+import { StringDecoder } from 'string_decoder';
+
 var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
 
-//-----------------------------------------------------------------------------------
+//db schema's
 let SpelerSchema = new mongoose.Schema({
   naam: String,
   wedstrijden: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Wedstrijd' }]
 });
-SpelerSchema.pre('remove', function(next) {
+SpelerSchema.pre('remove', function (next) {
   this.model('Wedstrijd').remove({ wedstrijden: this._id }, next);
 });
 let Speler = mongoose.model('Speler', SpelerSchema);
 
 let WedstrijdSchema = new mongoose.Schema({
   puntenGewonnen: { type: Number, default: 0 },
-  //datumGespeeld: Date,
-  datumGespeeld: /*{type: Date, default: Date.now() }*/String,
+  datumGespeeld: String, //Date wordt opgeslaan als String in backend ipv Date, geeft eenvoudiger datum terug naar front-end
   tegenstander: String
 });
 /* WedstrijdSchema.pre('remove', function (next) {
   this.model('Speler').remove({ wedstrijden: this._id }, next) //CHECK
 }) */
 let Wedstrijd = mongoose.model('Wedstrijd', WedstrijdSchema);
-//-----------------------------------------------------------------------------------
+
+let UserSchema = new mongoose.Schema({
+  username: { type: String, lowercase: true, unique: true },
+  hash: String, //encrypted wachtwoord
+  salt: String //random bytes gebruikt in hashen van wachtwoord
+});
+//hashen van wachtwoord mbv salt
+UserSchema.methods.setPassword = function (password) {
+  this.salt = crypto.randomBytes(32).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt,
+    10000, 64, 'sha512').toString('hex');
+};
+//check of password geldig is, wachtwoord hashen en vergelijken met ingestelde hash waarde, returns true | false
+UserSchema.methods.validPassword = function (password) {
+  let hash = crypto.pbkdf2Sync(password, this.salt,
+    10000, 64, 'sha512').toString('hex');
+  return this.hash === hash;
+};
+//json web token genereren, checkt identiteit van ingelogde gebruiker
+UserSchema.methods.generateJWT = function () {
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate(today.getDate() + 60);
+  return jwt.sign({
+    _id: this._id,
+    username: this.username,
+    exp: parseInt(exp.getTime() / 1000)
+  }, SECRET);
+};
+
 
 //GET alle spelers
 router.get('/API/spelers/', function (req, res, next) {
@@ -61,7 +91,7 @@ router.post('/API/spelers/', function (req, res, next) {
 
 //ADD Wedstrijd to speler
 router.post('/API/spelers/:speler/wedstrijden/', function (req, res, next) {
-  let wedstr = new Wedstrijd(/*req.body*/{puntenGewonnen: req.body.puntenGewonnen, datumGespeeld: req.body.datumGespeeld, tegenstander: req.body.tegenstander});
+  let wedstr = new Wedstrijd(/*req.body*/{ puntenGewonnen: req.body.puntenGewonnen, datumGespeeld: req.body.datumGespeeld, tegenstander: req.body.tegenstander });
   wedstr.save(function (err, wedstrijd) {
     if (err) {
       return next(err);

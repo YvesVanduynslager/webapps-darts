@@ -30,6 +30,7 @@ export class SpelersComponent implements OnInit {
   private onSubmit() {
     if (this.nieuweSpeler.valid)
       this.add(this.nieuweSpeler.value.naam);
+      this.nieuweSpeler.reset();
   }
 
   private gotoEdit(): void {
@@ -58,7 +59,18 @@ export class SpelersComponent implements OnInit {
       });
   }
   private getSpelers() {
-    this.spelerService.getSpelers().then(spelers => this.spelers = spelers);
+    //this.spelerService.getSpelers().then(spelers => this.spelers = spelers);
+    this.spelerService.getSpelers()
+    .then(spelers => spelers.sort((speler1, speler2) => {
+      if (speler1.naam > speler2.naam ) {
+        return 1;
+      }
+      if (speler1.naam < speler2.naam) {
+        return -1;
+      }
+      return 0;
+    }))
+    .then(spelers => this.spelers = spelers)
   }
 
   public ngOnInit(): void {

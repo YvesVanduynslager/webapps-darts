@@ -3,6 +3,7 @@ import { RouterModule, Routes} from '@angular/router';
 
 import { InfoComponent } from './info/info.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { PreloadAllModules } from '@angular/router/src/router_preloader';
 
 const routes: Routes = [
     { //lazy loading config
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes/*, {preloadingStrategy: PreloadAllModules}*/)],
     declarations: [],
     exports: [RouterModule]
 })
