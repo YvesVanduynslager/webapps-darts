@@ -4,7 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let passport = require('passport');
+
+//models importen anders fout dat Schema's niet geregistreerd worden
+require('./models/User');
+require('./models/Speler');
+require('./models/Wedstrijd');
 
 var index = require('./routes/index');
 var users = require('./routes/users');

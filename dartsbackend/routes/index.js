@@ -1,29 +1,30 @@
 var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
-
+let Wedstrijd = mongoose.model('Wedstrijd'/*, WedstrijdSchema*/);
+let Speler = mongoose.model('Speler'/*, SpelerSchema*/);
 let jwt = require('express-jwt');
 
 
 //db schema's
-let SpelerSchema = new mongoose.Schema({
+/* let SpelerSchema = new mongoose.Schema({
   naam: String,
   wedstrijden: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Wedstrijd' }]
 });
 SpelerSchema.pre('remove', function (next) {
   this.model('Wedstrijd').remove({ wedstrijden: this._id }, next);
-});
-let Speler = mongoose.model('Speler', SpelerSchema);
+}); */
 
-let WedstrijdSchema = new mongoose.Schema({
+
+/* let WedstrijdSchema = new mongoose.Schema({
   puntenGewonnen: { type: Number, default: 0 },
   datumGespeeld: String, //Date wordt opgeslaan als String in backend ipv Date, geeft eenvoudiger datum terug naar front-end
   tegenstander: String
-});
+}); */
 /* WedstrijdSchema.pre('remove', function (next) {
   this.model('Speler').remove({ wedstrijden: this._id }, next) //CHECK
 }) */
-let Wedstrijd = mongoose.model('Wedstrijd', WedstrijdSchema);
+
 
 let UserSchema = new mongoose.Schema({
   username: { type: String, lowercase: true, unique: true },
