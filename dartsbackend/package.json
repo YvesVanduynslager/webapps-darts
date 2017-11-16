@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set /P DARTS_SECRET=< app-env && echo %DARTS_SECRET% && node ./bin/www"
+    "start": "setvars.bat && node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.18.2",

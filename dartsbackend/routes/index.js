@@ -2,6 +2,9 @@ var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
 
+let jwt = require('express-jwt');
+
+
 //db schema's
 let SpelerSchema = new mongoose.Schema({
   naam: String,
