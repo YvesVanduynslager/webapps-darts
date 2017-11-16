@@ -1,33 +1,11 @@
 var express = require('express');
 var router = express.Router();
 let mongoose = require('mongoose');
-let Wedstrijd = mongoose.model('Wedstrijd'/*, WedstrijdSchema*/);
-let Speler = mongoose.model('Speler'/*, SpelerSchema*/);
+
+let Wedstrijd = mongoose.model('Wedstrijd');
+let Speler = mongoose.model('Speler');
+
 let jwt = require('express-jwt');
-
-
-//db schema's
-/* let SpelerSchema = new mongoose.Schema({
-  naam: String,
-  wedstrijden: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Wedstrijd' }]
-});
-SpelerSchema.pre('remove', function (next) {
-  this.model('Wedstrijd').remove({ wedstrijden: this._id }, next);
-}); */
-
-
-/* let WedstrijdSchema = new mongoose.Schema({
-  puntenGewonnen: { type: Number, default: 0 },
-  datumGespeeld: String, //Date wordt opgeslaan als String in backend ipv Date, geeft eenvoudiger datum terug naar front-end
-  tegenstander: String
-}); */
-/* WedstrijdSchema.pre('remove', function (next) {
-  this.model('Speler').remove({ wedstrijden: this._id }, next) //CHECK
-}) */
-
-
-
-
 
 //GET alle spelers
 router.get('/API/spelers/', function (req, res, next) {
@@ -48,13 +26,6 @@ router.get('/API/spelers/:id', function (req, res, next) {
 
 //CREATE speler
 router.post('/API/spelers/', function (req, res, next) {
-  /* let speler = new Speler(req.body);
-  speler.save(function (err, post) {
-    if (err) {
-      return next(err);
-    }
-    res.json(speler);
-  }); */
   let speler = new Speler({ naam: req.body.naam });
   speler.save(function (err, sp) {
     if (err) {
@@ -66,7 +37,7 @@ router.post('/API/spelers/', function (req, res, next) {
 
 //ADD Wedstrijd to speler
 router.post('/API/spelers/:speler/wedstrijden/', function (req, res, next) {
-  let wedstr = new Wedstrijd(/*req.body*/{ puntenGewonnen: req.body.puntenGewonnen, datumGespeeld: req.body.datumGespeeld, tegenstander: req.body.tegenstander });
+  let wedstr = new Wedstrijd({ puntenGewonnen: req.body.puntenGewonnen, datumGespeeld: req.body.datumGespeeld, tegenstander: req.body.tegenstander });
   wedstr.save(function (err, wedstrijd) {
     if (err) {
       return next(err);
@@ -99,12 +70,6 @@ router.put('/API/spelers/:id', function (req, res) {
 
 //DELETE speler
 router.delete('/API/spelers/:speler', function (req, res) {
-  /*   req.speler.remove(function (err) {
-      if (err) {
-        return next(err);
-      }
-      res.json("removed speler");
-    }); */
   Wedstrijd.remove({ _id: { $in: req.speler.wedstrijden } },
     function (err) {
       if (err) return next(err);
