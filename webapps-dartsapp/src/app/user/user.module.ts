@@ -8,12 +8,11 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RegisterComponent } from './register/register.component';
 import { LogoutComponent } from './logout/logout.component';
-//import { LogoutComponent } from './logout/logout.component';
 
 const routes = [
   { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent}//,
-  //{ path: 'logout', component: LogoutComponent }
+  { path: 'register', component: RegisterComponent},
+  { path: 'logout', component: LogoutComponent }
 ];
 @NgModule({
   imports: [
@@ -26,7 +25,7 @@ const routes = [
     LoginComponent,
     RegisterComponent,
     LogoutComponent,
-    //LogoutComponent
+    LogoutComponent
   ],
   providers: [
     AuthenticationService,

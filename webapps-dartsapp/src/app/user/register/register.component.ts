@@ -21,7 +21,7 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.less']
 })
 export class RegisterComponent implements OnInit {
   public user: FormGroup;

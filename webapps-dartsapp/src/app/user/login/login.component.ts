@@ -15,7 +15,7 @@ function passwordValidator(): ValidatorFn {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
   public user: FormGroup;

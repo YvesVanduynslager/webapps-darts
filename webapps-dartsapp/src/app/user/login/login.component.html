@@ -10,7 +10,7 @@
       <input type="password" id="password" formControlName="password">
     </div>
     <button type="submit" [disabled]='!user.valid'>Inloggen</button>
-    <div class="error" *ngIf='errorMsg'>{{errorMsg}}</div>
+    <!-- <div class="error" *ngIf='errorMsg'>{{errorMsg}}</div> -->
   </form>
   <a routerLink="/register">Registreren</a>
 </div>
