@@ -12,8 +12,8 @@ function passwordValidator(length: number): ValidatorFn {
 
 function comparePasswords(control: AbstractControl): { [key: string]: any } {
   const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-  return password.value === confirmPassword.value ? null : { 'passwordsDiffer': true };
+  const confirmpassword = control.get('confirmpassword');
+  return password.value === confirmpassword.value ? null : { 'passwordsDiffer': true };
 }
 
 
@@ -55,7 +55,7 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(2)], this.serverSideValidateUsername()],
       passwordGroup: this.fb.group({
         password: ['', [Validators.required, passwordValidator(12)]],
-        confirmPassword: ['', Validators.required]
+        confirmpassword: ['', Validators.required]
       }, { validator: comparePasswords })
     });
   }

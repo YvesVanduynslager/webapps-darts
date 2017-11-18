@@ -7,6 +7,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { RegisterComponent } from './register/register.component';
+import { LogoutComponent } from './logout/logout.component';
 //import { LogoutComponent } from './logout/logout.component';
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
   declarations: [
     LoginComponent,
     RegisterComponent,
+    LogoutComponent,
     //LogoutComponent
   ],
   providers: [

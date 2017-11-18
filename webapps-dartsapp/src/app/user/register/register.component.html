@@ -17,20 +17,21 @@
     <div formGroupName='passwordGroup'>
       <div class="formComponent">
         <label for="password">Wachtwoord:</label>
-        <input type="password" if="password" formControlName="password">
+        <input type="password" id="password" formControlName="password">
         <div class="error" *ngIf='passwordControl.errors?.passwordTooShort && passwordControl.touched'>
-          Wachtwoord is te kort, gebruik ten minste {{passwordControl.errors?.passwordTooShort.requiredLength}} letters!
-          U gebruikte {{passwordControl.errors?.passwordTooShort.actualLength}} letters.
+          Wachtwoord is te kort, gebruik ten minste {{passwordControl.errors?.passwordTooShort.requiredLength}} letters! U gebruikte
+          {{passwordControl.errors?.passwordTooShort.actualLength}} letters.
         </div>
       </div>
       <div class="formComponent">
         <label for="confirmpassword">Bevestig wachtwoord:</label>
-        <input type="password" id="confirmpassword" formControlName="confirmPassword">
+        <input type="password" id="confirmpassword" formControlName="confirmpassword">
       </div>
       <div class="error" *ngIf='user.get("passwordGroup").errors?.passwordsDiffer && user.get("passwordGroup").get("confirmPassword").touched && user.get("passwordGroup").get("password").touched'>
         Wachtwoorden zij niet gelijk!
       </div>
     </div>
+    {{user | json}}
     <button type="submit" [disabled]='!user.valid'>Registreer</button>
   </form>
 </div>
