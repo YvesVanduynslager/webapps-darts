@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes} from '@angular/router';
-
+// import { PreloadAllModules } from '@angular/router/src/router_preloader';
+import { RouterModule, Routes, PreloadAllModules} from '@angular/router';
+import { AuthGuardService } from '../app/user/auth-guard.service';
 import { InfoComponent } from './info/info.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { PreloadAllModules } from '@angular/router/src/router_preloader';
 
 const routes: Routes = [
     { //lazy loading config
         path: 'darts',
+        canActivate: [AuthGuardService],
         loadChildren: 'app/speler/speler.module#SpelerModule'
     },
     //{path: '', redirectTo: '/dashboard', pathMatch:'full'},
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes/*, {preloadingStrategy: PreloadAllModules}*/)],
+    imports: [RouterModule.forRoot(routes, {preloadingStrategy: PreloadAllModules})],
     declarations: [],
     exports: [RouterModule]
 })

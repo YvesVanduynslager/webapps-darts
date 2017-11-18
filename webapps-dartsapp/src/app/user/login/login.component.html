@@ -1,0 +1,16 @@
+<div class="dropshadow">
+  <form [formGroup]="user" (ngSubmit)='onSubmit()'>
+    <h2>Login</h2>
+    <div class="formComponent">
+      <label for="username">Gebruikersnaam:</label>
+      <input type="text" id="username" formControlName="username">
+    </div>
+    <div class="formComponent">
+      <label for="password">Wachtwoord:</label>
+      <input type="password" id="password" formControlName="password">
+    </div>
+    <button type="submit" [disabled]='!user.valid'>Inloggen</button>
+    <div class="error" *ngIf='errorMsg'>{{errorMsg}}</div>
+  </form>
+  <a routerLink="/register">Registreren</a>
+</div>

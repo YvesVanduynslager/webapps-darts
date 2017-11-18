@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InfoComponent } from './info/info.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
     BrowserModule,
     //SpelerModule weggehaald, want werkt nu met lazy loading, wordt geladen in app-routing.module
     //SpelerModule,
+    UserModule,
     AppRoutingModule
   ],
   //wordt nu geladen in speler.module
