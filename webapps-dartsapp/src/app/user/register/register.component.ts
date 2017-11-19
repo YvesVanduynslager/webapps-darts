@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { AuthenticationService } from '../authentication.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators, FormControl } from '@angular/forms';
+
+
 
 function passwordValidator(length: number): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
@@ -12,8 +14,8 @@ function passwordValidator(length: number): ValidatorFn {
 
 function comparePasswords(control: AbstractControl): { [key: string]: any } {
   const password = control.get('password');
-  const confirmpassword = control.get('confirmpassword');
-  return password.value === confirmpassword.value ? null : { 'passwordsDiffer': true };
+  const confirmPassword = control.get('confirmPassword');
+  return password.value === confirmPassword.value ? null : { 'passwordsDiffer': true };
 }
 
 
@@ -26,15 +28,25 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
 export class RegisterComponent implements OnInit {
   public user: FormGroup;
 
-  constructor(private authenticatorService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
-
   get passwordControl(): FormControl {
     return <FormControl>this.user.get('passwordGroup').get('password');
   }
 
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.user = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(4)], this.serverSideValidateUsername()],
+      passwordGroup: this.fb.group({
+        password: ['', [Validators.required, passwordValidator(8)]],
+        confirmPassword: ['', Validators.required]
+      }, { validator: comparePasswords })
+    });
+  }
+
   serverSideValidateUsername(): ValidatorFn {
     return (control: AbstractControl): Observable<{ [key: string]: any }> => {
-      return this.authenticatorService.checkUserNameAvailability(control.value).map(available => {
+      return this.authenticationService.checkUserNameAvailability(control.value).map(available => {
         if (available) {
           return null;
         }
@@ -44,20 +56,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticatorService.register(this.user.value.username, this.passwordControl.value).subscribe(val => {
-      if(val) {
+    this.authenticationService.register(this.user.value.username, this.passwordControl.value).subscribe(val => {
+      if (val) {
         this.router.navigate(['/darts/dashboard']);
       }
     });
   }
-  ngOnInit() {
-    this.user = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(2)], this.serverSideValidateUsername()],
-      passwordGroup: this.fb.group({
-        password: ['', [Validators.required, passwordValidator(12)]],
-        confirmpassword: ['', Validators.required]
-      }, { validator: comparePasswords })
-    });
-  }
-
 }

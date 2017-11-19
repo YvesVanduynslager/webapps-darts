@@ -9,15 +9,14 @@ passport.use(new LocalStrategy(
     function (username, password, done) {
         User.findOne({ username: username }, function (err, user) {
             if (err) { return done(err); }
-            //gebruiker niet gevonden
+            //no user
             if (!user) {
-                return done(null, false, { message: 'Onbekende gebruikersnaam.' });
+                return done(null, false, { message: 'Incorrect username.' });
             }
-            //verkeerd wachtwoord
+            //no valid pw
             if (!user.validPassword(password)) {
-                return done(null, false, { message: 'Verkeerd wachtwoord.' });
+                return done(null, false, { message: 'Incorrect password.' });
             }
-            return done(null, user); //OK
+            return done(null, user);
         });
-    }
-));
+    }));

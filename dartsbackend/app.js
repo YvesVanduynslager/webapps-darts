@@ -19,8 +19,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-//process.env.MONGO_URL voor connectie op Azure
-mongoose.connect('mongodb://localhost/dartsdb' || process.env.MONGO_URL, { useMongoClient: true});
+mongoose.connect('mongodb://localhost/dartsdb', { useMongoClient: true});
 mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
