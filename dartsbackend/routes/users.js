@@ -4,8 +4,8 @@ let mongoose = require('mongoose');
 let passport = require('passport');
 let User = mongoose.model('User');
 
-/* GET users listing.
-router.get('/', function(req, res, next) {
+//GET users listing.
+/* router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 }); */
 router.post('/register', function (req, res, next) {
@@ -17,7 +17,7 @@ router.post('/register', function (req, res, next) {
   user.setPassword(req.body.password)
   user.save(function (err) {
     if (err) { return next(err); }
-    return res.json({ token: user.generateJWT() })
+    return res.json({ token: user.generateJWT() });
   });
 });
 
@@ -25,7 +25,7 @@ router.post('/login', function (req, res, next) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ message: 'Please fill out all fields' });
   }
-  passport.authenticate('local', function (err, user, info) { //loopt hier fout, authenticate niet
+  passport.authenticate('local', function (err, user, info) { //loopt hier fout, authenticate niet door geen user gevonden
     if (err) { return next(err); }
     if (user) {
       return res.json({ token: user.generateJWT() });

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
+import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthenticationService {
-  private _url = 'API/users';
-  private _user$: BehaviorSubject<string>; //BehaviorSubject onthoud laatste waarde
+  private _url = '/API/users';
+  private _user$: BehaviorSubject<string>;
 
   public redirectUrl: string;
 
@@ -27,12 +27,11 @@ export class AuthenticationService {
     return this.http.post(`${this._url}/login`, { username: username, password: password })
       .map(res => res.json()).map(res => {
         const token = res.token;
-        if (token) { //als token een waarde heeft: currentUser instellen in localStorage
+        if (token) {
           localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
-          this._user$.next(username); //nieuwe waarde geven aan _user$ (is BehaviorSubject)
+          this._user$.next(username);
           return true;
-        }
-        else {
+        } else {
           return false;
         }
       });
@@ -42,8 +41,6 @@ export class AuthenticationService {
     if (this.user$.getValue()) {
       localStorage.removeItem('currentUser');
       setTimeout(() => this._user$.next(null));
-      /*setTimeout om de waarde te laten veranderen bij de volgende job queue tick
-      anders wijzigen we waarden terwijl change detection chain nog bezig is */
     }
   }
 
@@ -55,8 +52,7 @@ export class AuthenticationService {
           localStorage.setItem('currentUser', JSON.stringify({ username: username, token: res.token }));
           this._user$.next(username);
           return true;
-        }
-        else {
+        } else {
           return false;
         }
       });
@@ -64,13 +60,12 @@ export class AuthenticationService {
 
   checkUserNameAvailability(username: string): Observable<boolean> {
     return this.http.post(`${this._url}/checkusername`, { username: username }).map(res => res.json())
-      .map(item => {
-        if (item.username === 'alreadyexists') {
-          return false;
-        }
-        else {
-          return true;
-        }
-      });
+    .map(item => {
+      if (item.username === 'alreadyexists') {
+        return false;
+      } else {
+        return true;
+      }
+    });
   }
 }

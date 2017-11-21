@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     this.user = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(4)], this.serverSideValidateUsername()],
       passwordGroup: this.fb.group({
-        password: ['', [Validators.required, passwordValidator(8)]],
+        password: ['', [Validators.required, passwordValidator(12)]],
         confirmPassword: ['', Validators.required]
       }, { validator: comparePasswords })
     });
@@ -63,3 +63,4 @@ export class RegisterComponent implements OnInit {
     });
   }
 }
+

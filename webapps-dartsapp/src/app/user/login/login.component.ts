@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication.service';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+
 
 function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
@@ -9,8 +10,6 @@ function passwordValidator(): ValidatorFn {
     return control.value.length < 12 ? { 'passwordTooShort': { value: control.value.length } } : null;
   };
 }
-
-
 
 @Component({
   selector: 'app-login',
@@ -23,6 +22,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthenticationService, private router: Router, private fb: FormBuilder) { }
 
+  ngOnInit() {
+    this.user = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
   onSubmit() {
     this.authService.login(this.user.value.username, this.user.value.password).subscribe(val => {
       if (val) {
@@ -31,15 +37,9 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(this.authService.redirectUrl);
           this.authService.redirectUrl = undefined;
         } else {
-          this.router.navigate(['/darts/dashboard']);
+          this.router.navigate(['/recipe/list']);
         }
       }
     }, err => this.errorMsg = err.json().message);
-  }
-  ngOnInit() {
-    this.user = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
   }
 }

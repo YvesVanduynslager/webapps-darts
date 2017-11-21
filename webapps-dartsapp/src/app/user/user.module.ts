@@ -24,7 +24,6 @@ const routes = [
   declarations: [
     LoginComponent,
     RegisterComponent,
-    LogoutComponent,
     LogoutComponent
   ],
   providers: [
