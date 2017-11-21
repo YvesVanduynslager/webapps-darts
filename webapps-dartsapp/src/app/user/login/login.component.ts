@@ -7,7 +7,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from
 function passwordValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } => {
     console.log(control.value);
-    return control.value.length < 12 ? { 'passwordTooShort': { value: control.value.length } } : null;
+    return control.value.length < 8 ? { 'passwordTooShort': { value: control.value.length } } : null;
   };
 }
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(this.authService.redirectUrl);
           this.authService.redirectUrl = undefined;
         } else {
-          this.router.navigate(['/recipe/list']);
+          this.router.navigate(['/darts/dashboard']);
         }
       }
     }, err => this.errorMsg = err.json().message);
