@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-// import { PreloadAllModules } from '@angular/router/src/router_preloader';
 import { RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import { AuthGuardService } from '../app/user/auth-guard.service';
 import { InfoComponent } from './info/info.component';

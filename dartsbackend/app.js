@@ -7,20 +7,22 @@ var bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let passport = require('passport');
 
-//models importen anders fout dat Schema's niet geregistreerd worden
 require('./models/User');
 require('./models/Speler');
 require('./models/Wedstrijd');
 
 require('./config/passport');
 
+mongoose.connect('mongodb://localhost/dartsdb', {  useMongoClient: true });
+mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'));
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost/dartsdb', { useMongoClient: true});
-mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'));
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -37,6 +39,7 @@ app.use(passport.initialize());
 app.use('/', index);
 app.use('/API/users', users);
 
+// console.log(process.env.RECIPE_BACKEND_SECRET);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -54,5 +57,35 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// function print (path, layer) {
+//   if (layer.route) {
+//     layer.route.stack.forEach(print.bind(null, path.concat(split(layer.route.path))))
+//   } else if (layer.name === 'router' && layer.handle.stack) {
+//     layer.handle.stack.forEach(print.bind(null, path.concat(split(layer.regexp))))
+//   } else if (layer.method) {
+//     console.log('%s /%s',
+//       layer.method.toUpperCase(),
+//       path.concat(split(layer.regexp)).filter(Boolean).join('/'))
+//   }
+// }
+
+// function split (thing) {
+//   if (typeof thing === 'string') {
+//     return thing.split('/')
+//   } else if (thing.fast_slash) {
+//     return ''
+//   } else {
+//     var match = thing.toString()
+//       .replace('\\/?', '')
+//       .replace('(?=\\/|$)', '$')
+//       .match(/^\/\^((?:\\[.*+?^${}()|[\]\\\/]|[^.*+?^${}()|[\]\\\/])*)\$\//)
+//     return match
+//       ? match[1].replace(/\\(.)/g, '$1').split('/')
+//       : '<complex:' + thing.toString() + '>'
+//   }
+// }
+
+// app._router.stack.forEach(print.bind(null, []))
 
 module.exports = app;

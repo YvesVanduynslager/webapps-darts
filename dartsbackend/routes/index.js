@@ -9,7 +9,7 @@ let jwt = require('express-jwt');
 let auth = jwt({ secret: process.env.DARTS_BACKEND_SECRET, userProperty: 'payload' });
 
 //GET alle spelers
-router.get('/API/spelers/', function (req, res, next) {
+router.get('/API/spelers/', auth, function (req, res, next) {
   let query = Speler.find().populate('wedstrijden');
   query.exec((err, spelers) => {
     if (err) return next(err);
@@ -17,7 +17,7 @@ router.get('/API/spelers/', function (req, res, next) {
   });
 });
 //GET één speler
-router.get('/API/spelers/:id', function (req, res, next) {
+router.get('/API/spelers/:id', auth, function (req, res, next) {
   let query = Speler.findById(req.params.id).populate('wedstrijden');
   query.exec((err, speler) => {
     if (err) return next(err);
