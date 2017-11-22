@@ -8,7 +8,7 @@ let User = mongoose.model('User');
 /* router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 }); */
-router.post('/register', function (req, res, next) {
+router.post('/register', function (req, res, next) { //speler wordt niet opgeslagen? token wordt wel gegenereerd, daardoor niet mogelijk om in te loggen
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({ message: 'Please fill out all fields' });
   }
