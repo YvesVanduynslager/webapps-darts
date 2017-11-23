@@ -54,5 +54,6 @@ export class WedstrijdDetailComponent implements OnInit {
     this.spelerService
       .deleteWedstrijd(wedstrijd.id)
       .then(() => this.getWedstrijdDetails());
+      //.subscribe(() => this.getWedstrijdDetails());
   }
 }

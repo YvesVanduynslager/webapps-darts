@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
   public ngOnInit() {
     this.spelerService.getSpelers()
-      .then(spelers => spelers.sort((speler1, speler2) => {
+       .then(spelers => spelers.sort((speler1, speler2) => {
         if (speler1.totaalPunten > speler2.totaalPunten ) {
           return -1;
         }
@@ -24,5 +24,18 @@ export class DashboardComponent implements OnInit {
         return 0;
       }))
       .then(spelers => this.spelers = spelers)
+      //.subscribe(spelers => this.spelers = spelers);
+  }
+
+  private sortedSpelers(): Speler[]{
+    return this.spelers.sort((speler1, speler2) => {
+      if (speler1.totaalPunten > speler2.totaalPunten ) {
+        return -1;
+      }
+      if (speler1.totaalPunten < speler2.totaalPunten) {
+        return 1;
+      }
+      return 0;
+    });
   }
 }

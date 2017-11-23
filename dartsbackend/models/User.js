@@ -3,7 +3,7 @@ let crypto = require('crypto');
 let jwt = require('jsonwebtoken');
 
 let UserSchema = new mongoose.Schema({
-    username: { type: String, lowercase: true, unique: true },
+    username: { type: String, /*lowercase:true, */unique: true },
     hash: String,
     salt: String //random bytes
 });
@@ -24,6 +24,7 @@ UserSchema.methods.validPassword = function (password) {
 
 //json web token genereren, checkt identiteit van ingelogde gebruiker
 UserSchema.methods.generateJWT = function () {
+    console.log("generateJWT called.");
     var today = new Date();
     var exp = new Date(today);
     exp.setDate(today.getDate() + 60);

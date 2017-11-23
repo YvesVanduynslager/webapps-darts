@@ -18,7 +18,7 @@ export class SpelerService {
     public constructor(private http: Http, private auth: AuthenticationService) { }
 
     public getSpelers(): Promise<Speler[]> {
-        return this.http.get(this.spelersUrl).map(response =>
+        return this.http.get(this.spelersUrl, { headers: new Headers({ Authorization: `Bearer ${this.auth.token}` }) }).map(response =>
             response.json().map(item => new Speler(item._id, item.naam, item.wedstrijden
                 .map(w => new Wedstrijd(w._id, w.puntenGewonnen, w.tegenstander, w.datumGespeeld))))) //url naar servercommand die data ophaalt
             .toPromise() //Observable naar Promise omzetten, .toPromise op observable heeft [import 'rxjs/add/operator/toPromise';] nodig!!!

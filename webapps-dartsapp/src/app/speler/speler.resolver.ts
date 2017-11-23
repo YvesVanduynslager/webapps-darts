@@ -1,7 +1,7 @@
 import { Resolve } from '@angular/router';
 import { Speler } from './speler';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Rx';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router/src/router_state';
 import { SpelerService } from './speler.service';
 

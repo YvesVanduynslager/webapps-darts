@@ -42,7 +42,9 @@ export class SpelerDetailComponent implements OnInit {
     //console.log(this.speler);
     this.speler.naam = naam;
     this.spelerService.update(this.speler)
-      .then(() => this.goBack());
+      //.then(() => this.goBack());
+      //.subscribe(() => this.goBack());
+      this.goBack();
   }
 
   public ngOnInit(): void {

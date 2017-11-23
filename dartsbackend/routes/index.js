@@ -6,11 +6,10 @@ let jwt = require('express-jwt');
 let Wedstrijd = mongoose.model('Wedstrijd');
 let Speler = mongoose.model('Speler');
 
-
 let auth = jwt({ secret: process.env.DARTS_BACKEND_SECRET, userProperty: 'payload' });
 
 //GET alle spelers
-router.get('/API/spelers/', function (req, res, next) {
+router.get('/API/spelers/', auth, function (req, res, next) {
   let query = Speler.find().populate('wedstrijden');
   query.exec((err, spelers) => {
     if (err) return next(err);

@@ -41,27 +41,35 @@ export class SpelersComponent implements OnInit {
     naam = naam.trim();
 
     this.spelerService.create(naam)
-      .then(() => {
+       .then(() => {
         this.getSpelers(); //nogmaals spelers ophalen na add speler
         this.selectedSpeler = null;
       });
+/*       .subscribe(() => {
+        this.getSpelers() //nogmaals spelers ophalen na add speler
+        this.selectedSpeler = null;
+      }); */
     return false; //event handlers return a boolean, true if you want to propagate the event to other handlers, false to "eat" the event
   }
 
   private delete(speler: Speler): void {
     this.spelerService
       .delete(speler)
-      .then(() => {
+       .then(() => {
         this.spelers = this.spelers.filter(s => s !== speler);
         if (this.selectedSpeler === speler) {
           this.selectedSpeler = null;
         }
+/*         .subscribe(() => {
+          this.spelers = this.spelers.filter(s => s !== speler);
+          if (this.selectedSpeler === speler) {
+            this.selectedSpeler = null;
+          } */
       });
   }
   private getSpelers() {
-    //this.spelerService.getSpelers().then(spelers => this.spelers = spelers);
     this.spelerService.getSpelers()
-    .then(spelers => spelers.sort((speler1, speler2) => {
+     .then(spelers => spelers.sort((speler1, speler2) => {
       if (speler1.naam > speler2.naam ) {
         return 1;
       }
@@ -70,7 +78,7 @@ export class SpelersComponent implements OnInit {
       }
       return 0;
     }))
-    .then(spelers => this.spelers = spelers)
+    .then(spelers => this.spelers = spelers);
   }
 
   public ngOnInit(): void {

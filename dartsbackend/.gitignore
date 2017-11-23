@@ -2,3 +2,4 @@ app-env
 
 # dependencies
 /node_modules
+/data/db
