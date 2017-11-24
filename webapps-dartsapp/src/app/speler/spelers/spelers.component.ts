@@ -39,6 +39,7 @@ export class SpelersComponent implements OnInit {
 
   private add(naam: string): boolean {
     naam = naam.trim();
+    console.log("add method in spelers.component: " + naam);
 
     this.spelerService.create(naam)
        .then(() => {

@@ -18,7 +18,7 @@ const routes = [
     {path: 'dashboard', component: DashboardComponent},
     {path: 'editSpeler/:id', component: SpelerDetailComponent, /*resolve guard*/ resolve: { speler: SpelerResolver }}, //prefetch spelerData mbv SpelerResolver
     {path: 'nieuweWedstrijd/:id', component: NieuwewedstrijdComponent, resolve: { speler: SpelerResolver }},
-    {path: 'wedstrijden/:id', component: WedstrijdDetailComponent, /*resolver: { speler: SpelerResolver}*/},
+    {path: 'wedstrijden/:id', component: WedstrijdDetailComponent/*, resolver: { speler: SpelerResolver}*/},
     {path: 'spelers', component: SpelersComponent},
 ];
 

@@ -41,7 +41,7 @@ export class WedstrijdDetailComponent implements OnInit {
   /* Ik haal hier de speler ook opnieuw op , ipv enkel de wedstrijden, omdat de totale score van alle wedstrijden in Speler berekend wordt */
   private getWedstrijdDetails(): void {
     //geen gebruik van SpelerResolver, omdat wedstrijden gemapt moeten worden naar Wedstrijd objecten, moet wel mogelijk zijn, but yeah...
-     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
+    this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
       .map(w => new Wedstrijd(w._id, w.puntenGewonnen, this.parseDatum(w.datumGespeeld), w.tegenstander)))))
       .subscribe(speler => this.speler = speler);
   }
@@ -54,6 +54,6 @@ export class WedstrijdDetailComponent implements OnInit {
     this.spelerService
       .deleteWedstrijd(wedstrijd.id)
       .then(() => this.getWedstrijdDetails());
-      //.subscribe(() => this.getWedstrijdDetails());
+    //.subscribe(() => this.getWedstrijdDetails());
   }
 }

@@ -9,7 +9,7 @@ let Speler = mongoose.model('Speler');
 let auth = jwt({ secret: process.env.DARTS_BACKEND_SECRET, userProperty: 'payload' });
 
 //GET alle spelers
-router.get('/API/spelers/', auth, function (req, res, next) {
+router.get('/API/spelers/', function (req, res, next) {
   let query = Speler.find().populate('wedstrijden');
   query.exec((err, spelers) => {
     if (err) return next(err);
@@ -27,7 +27,8 @@ router.get('/API/spelers/:id', auth, function (req, res, next) {
 
 //CREATE speler
 router.post('/API/spelers/', auth, function (req, res, next) {
-  let speler = new Speler({ naam: req.body.naam });
+  let speler = new Speler({ naam: req.body.naam, wedstrijden: new Array() });
+  console.log("naam: " + req.body.naam);
   speler.save(function (err, sp) {
     if (err) {
       return next(err);

@@ -49,7 +49,6 @@ export class NieuwewedstrijdComponent implements OnInit {
 
   private add(punten: number, datum: string, tegenstander: string): void {
     this.spelerService.addWedstrijdToSpeler(punten, datum, tegenstander, this.speler._id);
-
     this.goBack();
   }
 
