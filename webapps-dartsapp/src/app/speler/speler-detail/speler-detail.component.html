@@ -4,9 +4,11 @@
       <h2>{{speler.naam}} aanpassen</h2>
       <div class="formComponent">
         <label for="naam">Naam: </label>
-        <input id="naam" formControlName="naam" #naam/>
+        <input type="text" id="naam" formControlName="naam" #naam/>
       </div>
-      <div class="error" *ngIf="!wijzigSpeler.valid">Naam moet ingevuld zijn en langer zijn dan 1 teken!</div>
+      <!--<div class="error" *ngIf="!wijzigSpeler.valid">Naam moet ingevuld zijn en langer zijn dan 1 teken!</div>-->
+      <div class="error" *ngIf='wijzigSpeler.get("naam").errors?.required && wijzigSpeler.get("naam").touched'>Naam is verplicht</div>
+      <div class="error" *ngIf='wijzigSpeler.get("naam").errors?.minlength && wijzigSpeler.get("naam").touched'>Naam moet uit minstens {{wijzigSpeler.get("naam").errors?.minlength.requiredLength }} letters bestaan</div>
       <button (click)="goBack()">Terug</button>
       <button type="submit">Opslaan</button>
     </form>

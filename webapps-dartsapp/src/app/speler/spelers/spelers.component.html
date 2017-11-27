@@ -15,14 +15,13 @@
         <div>
           <label for="naam">Naam:</label>
           <input type="text" id="naam" formControlName="naam" #spelerNaam/>
-          <div class="error" *ngIf="!nieuweSpeler.valid">Naam moet ingevuld zijn en langer zijn dan 1 teken!</div>
-          <!-- <input type="text" id="naam" name="naam" #spelerNaam/> -->
+          <div class="error" *ngIf='nieuweSpeler.get("naam").errors?.required && nieuweSpeler.get("naam").touched'>Naam is verplicht</div>
+          <div class="error" *ngIf='nieuweSpeler.get("naam").errors?.minlength && nieuweSpeler.get("naam").touched'>Naam moet uit minstens {{nieuweSpeler.get("naam").errors?.minlength.requiredLength }} letters bestaan</div>
         </div>
         <button type="submit">Voeg toe</button>
         <!-- <button (click)="add(spelerNaam.value); spelerNaam.value=''">Voeg toe</button> -->
         <!-- add(spelerNaam) als je met HTMLInputElement werkt-->
       </form>
-      <!--REMOVE {{nieuweSpeler.value | json}} {{ nieuweSpeler.valid}}-->
     </div>
   </div>
   <div id="details" class="dropshadow" *ngIf="selectedSpeler">

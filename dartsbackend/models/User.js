@@ -12,19 +12,16 @@ let UserSchema = new mongoose.Schema({
 UserSchema.methods.setPassword = function (password) {
     this.salt = crypto.randomBytes(32).toString('hex');
     this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('hex');
-    console.log("hashed pw: " + this.hash);
 };
 
 //check of password geldig is, wachtwoord hashen en vergelijken met ingestelde hash waarde, returns true | false
 UserSchema.methods.validPassword = function (password) {
     var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('hex');
-    console.log("valid password: " + this.hash === hash);
     return this.hash === hash;
 };
 
 //json web token genereren, checkt identiteit van ingelogde gebruiker
 UserSchema.methods.generateJWT = function () {
-    console.log("generateJWT called.");
     var today = new Date();
     var exp = new Date(today);
     exp.setDate(today.getDate() + 60);

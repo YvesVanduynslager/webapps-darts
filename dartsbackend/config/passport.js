@@ -10,13 +10,13 @@ passport.use(new LocalStrategy(
         User.findOne({ username: username }, function (err, user) {
             if (err) { return done(err); }
             //no user
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
+            if (!user || !user.validPassword(password)) {
+                return done(null, false, { message: 'Onbekende gebruikersnaam of wachtwoord.' });
             }
             //no valid pw
-            if (!user.validPassword(password)) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
+/*             if (!user.validPassword(password)) {
+                return done(null, false, { message: 'Verkeerd wachtwoord.' });
+            } */
             return done(null, user);
         });
     }));
