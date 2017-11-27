@@ -42,7 +42,7 @@ export class WedstrijdDetailComponent implements OnInit {
   private getWedstrijdDetails(): void {
     //geen gebruik van SpelerResolver, omdat wedstrijden gemapt moeten worden naar Wedstrijd objecten, moet wel mogelijk zijn, but yeah...
     this.route.paramMap.switchMap((params: ParamMap) => this.spelerService.getSpeler(params.get('id')).map(item => new Speler(item._id, item.naam, item.wedstrijden
-      .map(w => new Wedstrijd(w._id, w.puntenGewonnen, this.parseDatum(w.datumGespeeld), w.tegenstander)))))
+    .map(w => new Wedstrijd(w._id, w.puntenGewonnen, this.parseDatum(w.datumGespeeld), w.tegenstander)))))
       .subscribe(speler => this.speler = speler);
   }
 
@@ -52,7 +52,7 @@ export class WedstrijdDetailComponent implements OnInit {
 
   private delete(wedstrijd: Wedstrijd): void {
     this.spelerService
-      .deleteWedstrijd(wedstrijd.id)
+      .deleteWedstrijd(wedstrijd._id)
       .then(() => this.getWedstrijdDetails());
     //.subscribe(() => this.getWedstrijdDetails());
   }

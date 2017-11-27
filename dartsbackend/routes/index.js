@@ -27,7 +27,7 @@ router.get('/API/spelers/:id', auth, function (req, res, next) {
 
 //CREATE speler
 router.post('/API/spelers/', auth, function (req, res, next) {
-  let speler = new Speler({ naam: req.body.naam, wedstrijden: new Array() });
+  let speler = new Speler({ naam: req.body.naam/*, wedstrijden: new Array() */});
   console.log("naam: " + req.body.naam);
   speler.save(function (err, sp) {
     if (err) {

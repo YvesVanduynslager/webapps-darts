@@ -15,31 +15,31 @@ export class Speler {
         this._naam = naam;
     }
 
-    get naam(): string{
+    get naam(): string {
         return this._naam;
     }
 
-    set naam(naam:string){
+    set naam(naam: string) {
         this._naam = naam;
     }
 
-    get id(): string{
+    get id(): string {
         return this._id;
     }
 
-    get totaalPunten() {
+    get totaalPunten(): number {
         let totaal: number = 0;
         this.wedstrijden.forEach(w => totaal += w.puntenGewonnen);
         return totaal;
     }
 
-    get totaalVerlorenPunten() {
+    get totaalVerlorenPunten(): number {
         let totaal: number = 0;
         this.wedstrijden.forEach(w => totaal += w.puntenVerloren);
         return totaal;
     }
 
-    get aantalGespeeld():number{
+    get aantalGespeeld(): number {
         return this.wedstrijden.length;
     }
 
@@ -50,7 +50,7 @@ export class Speler {
         };
     }
 
-/*     addWedstrijd(w: Wedstrijd){
+    addWedstrijd(w: Wedstrijd) {
         this.wedstrijden.push(w);
-    } */
+    }
 }

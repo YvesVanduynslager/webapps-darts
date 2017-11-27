@@ -18,6 +18,6 @@ export class Wedstrijd
         return this._datumGespeeld;
     }
     public get puntenVerloren(): number {
-        return 3 - this._puntenGewonnen;
+        return 3 - this.puntenGewonnen;
     }
 }
