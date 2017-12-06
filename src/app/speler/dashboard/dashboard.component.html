@@ -1,0 +1,23 @@
+<div class="dropshadow">
+    <h2>Rangschikking (klik op een naam van een speler voor details)</h2>
+    <table>
+        <tr>
+            <th>Plaats</th>
+            <th>Speler</th>
+            <th>Totaal gewonnen punten</th>
+            <th>Totaal verloren punten</th>
+            <th>Matches gespeeld</th>
+        </tr>
+        <tr *ngFor="let speler of spelers; let i = index" [routerLink]="['../../darts/wedstrijden', speler.id]">
+            <!-- twee levels terug, anders krijg je darts/dashboard/darts/wedstrijden -->
+            <td>{{i+1}}</td>
+            <td>
+                <h4>{{speler.naam}}</h4>
+            </td>
+            <td>{{speler.totaalPunten}}</td>
+            <td>{{speler.totaalVerlorenPunten}}</td>
+            <td>{{speler.aantalGespeeld}}</td>
+        </tr>
+        </table>
+        {{spelers | json}}
+</div>
