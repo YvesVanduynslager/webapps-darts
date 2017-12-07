@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let passport = require('passport');
+var cors = require('cors');
 
 require('./models/User');
 require('./models/Speler');
@@ -19,8 +20,11 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+app.use(cors())
 
-app.listen(5000);
+app.listen(4200, function () {
+  console.log('CORS-enabled web server listening on port 4200')
+});
 // view engine setup
 /* app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade'); */
