@@ -15,15 +15,14 @@ require('./config/passport');
 mongoose.connect(process.env.DARTS_DATABASE, {  useMongoClient: true });
 mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'));
 
-var users = require('./routes/users');
 var index = require('./routes/index');
-
+var users = require('./routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+/* app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade'); */
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
