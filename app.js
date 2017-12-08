@@ -22,8 +22,8 @@ var users = require('./routes/users');
 var app = express();
 app.use(cors())
 
-app.listen(4200, function () {
-  console.log('CORS-enabled web server listening on port 4200')
+app.listen(443, function () {
+  console.log('CORS-enabled web server listening on port 443')
 });
 // view engine setup
 /* app.set('views', path.join(__dirname, 'views'));

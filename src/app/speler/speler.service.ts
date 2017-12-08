@@ -11,7 +11,8 @@ import { AuthenticationService } from '../user/authentication.service';
 
 @Injectable()
 export class SpelerService {
-    private spelersUrl = 'http://localhost:4200/API/spelers/';
+    private spelersUrl = '/API/spelers/';
+    //http://localhost:4200
 
     //private headers = new Headers({ 'Content-Type': 'application/json' });
 
