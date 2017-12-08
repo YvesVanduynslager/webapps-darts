@@ -70,7 +70,8 @@ export class SpelerService {
     }
 
     public deleteWedstrijd(id: string): Promise<void> {
-        const url = `http://localhost:4200/API/wedstrijden/${id}`;
+        const url = `/API/wedstrijden/${id}`;
+        //http://localhost:4200
         return this.http.delete(url, { headers: new Headers({ Authorization: `Bearer ${this.auth.token}` }) })
             .toPromise()
             .then(() => null)
